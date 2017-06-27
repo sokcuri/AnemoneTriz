@@ -192,6 +192,10 @@ namespace AnemoneTriz.Components
             if (Initialized == false)
                 return;
 
+            Skia_Bitmap.Dispose();
+            Skia_Canvas.Dispose();
+            CSharp_Bitmap.Dispose();
+
             ReleaseDC(IntPtr.Zero, screenDc);
             SelectObject(Skia_DC, oldBitmap);
             DeleteDC(Skia_DC);
