@@ -184,7 +184,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\libSkiaSharp.dll" />
     <None Include="FodyWeavers.xml" />
     <Content Include="Resources\anemone.ico" />
     <None Include="Resources\kawaii_mashiro.jpg" />
