@@ -64,6 +64,25 @@ namespace AnemoneTriz.Forms
         {
             Application.Restart();
         }
+        
+        private void manualRestartTestButton_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.UseShellExecute = false;
+            startInfo.WorkingDirectory = Environment.CurrentDirectory;
+            startInfo.FileName = Application.ExecutablePath;
+            startInfo.Verb = "runas";
+            try
+            {
+                Process p = Process.Start(startInfo);
+                Application.Exit();
+            }
+            catch (Win32Exception)
+            {
+                MessageBox.Show("재시작 실패");
+                return;
+            }
+        }
 
         private void uacRequestTestButton_Click(object sender, EventArgs e)
         {
