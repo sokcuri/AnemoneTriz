@@ -91,7 +91,7 @@ namespace AnemoneTriz.Properties {
         }
         
         /// <summary>
-        ///   아네모네 트리즈과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   아네모네 트리즈 &lt;&lt;테스트&gt;&gt;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string AnemoneTitleName {
             get {
@@ -145,6 +145,16 @@ namespace AnemoneTriz.Properties {
             get {
                 object obj = ResourceManager.GetObject("kawaii_mashiro", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] libSkiaSharp {
+            get {
+                object obj = ResourceManager.GetObject("libSkiaSharp", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
