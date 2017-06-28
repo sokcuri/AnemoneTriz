@@ -91,11 +91,20 @@ namespace AnemoneTriz.Properties {
         }
         
         /// <summary>
-        ///   아네모네 트리즈 v3.00.170621과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   아네모네 트리즈과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string AnemoneTitleName {
             get {
                 return ResourceManager.GetString("AnemoneTitleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   3.00.170628과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string AnemoneVersion {
+            get {
+                return ResourceManager.GetString("AnemoneVersion", resourceCulture);
             }
         }
         

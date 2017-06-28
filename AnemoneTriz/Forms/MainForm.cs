@@ -42,7 +42,7 @@ namespace AnemoneTriz.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Text = Properties.Resources.ResourceManager.GetString("AnemoneTitleName");
+            Text = $"{Properties.Resources.ResourceManager.GetString("AnemoneTitleName")} v${Properties.Resources.ResourceManager.GetString("AnemoneVersion")}";
         }
 
         private void ocrModeButton_Click(object sender, EventArgs e)

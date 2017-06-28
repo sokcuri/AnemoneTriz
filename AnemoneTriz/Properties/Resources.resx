@@ -140,7 +140,7 @@
     <value>..\Resources\clipboard_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AnemoneTitleName" xml:space="preserve">
-    <value>아네모네 트리즈 v3.00.170621</value>
+    <value>아네모네 트리즈</value>
   </data>
   <data name="text_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\text_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -150,5 +150,8 @@
   </data>
   <data name="kawaii_mashiro" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kawaii_mashiro.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AnemoneVersion" xml:space="preserve">
+    <value>3.00.170628</value>
   </data>
 </root>

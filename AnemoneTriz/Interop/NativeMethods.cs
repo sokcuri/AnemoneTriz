@@ -58,6 +58,9 @@ namespace AnemoneTriz.Interop
         [DllImport("gdi32.dll", EntryPoint = "GdiAlphaBlend")]
         public static extern bool AlphaBlend(IntPtr hdcDest, int nXOriginDest, int nYOriginDest, int nWidthDest, int nHeightDest, IntPtr hdcSrc, int nXOriginSrc, int nYOriginSrc, int nWidthSrc, int nHeightSrc, BLENDFUNCTION blendFunction);
 
+        [DllImport("comctl32.dll", CharSet = CharSet.Unicode, EntryPoint = "TaskDialog")]
+        public static extern int _TaskDialog(IntPtr hWndParent, IntPtr hInstance, String pszWindowTitle, String pszMainInstruction, String pszContent, int dwCommonButtons, IntPtr pszIcon, out int pnButton);
+        
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct BLENDFUNCTION
         {
