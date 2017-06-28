@@ -89,9 +89,12 @@ namespace AnemoneTriz.Components
             Skia_Canvas = new SKCanvas(Skia_Bitmap);
             int stride = Size.Width * 4;
             CSharp_Bitmap = new Bitmap(Size.Width, Size.Height, stride, PixelFormat.Format32bppPArgb, scan0);
-
+            BitmapSize = Size;
+            
             PostChain?.Invoke(Skia_Canvas);
 
+            // 메모리 회수
+            SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
             Initialized = true;
         }
 

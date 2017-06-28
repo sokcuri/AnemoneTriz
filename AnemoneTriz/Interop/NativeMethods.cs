@@ -68,6 +68,9 @@ namespace AnemoneTriz.Interop
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FreeLibrary(IntPtr hModule);
 
+        [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern int SetProcessWorkingSetSize(IntPtr process, int minimumWorkingSetSize, int maximumWorkingSetSize);
+
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
 

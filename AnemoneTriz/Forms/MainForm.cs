@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using AnemoneTriz.Components;
 using SkiaSharp;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace AnemoneTriz.Forms
 {
@@ -39,6 +40,11 @@ namespace AnemoneTriz.Forms
             };
             
             SKHelper.SwapChain();
+
+            // Temporary Routine
+            amButton1.BackColor = Color.FromArgb(100, 255, 255, 255);
+            amButton1.FlatAppearance.BorderColor = Color.FromArgb(100, 255, 255, 255);
+            amButton1.FlatStyle = FlatStyle.Flat;
         }
         private void Form1_Load(object sender, EventArgs e)
         {

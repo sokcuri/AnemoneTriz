@@ -51,14 +51,15 @@ namespace AnemoneTriz.Forms
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuItem_aboutAnemoneTriz = new System.Windows.Forms.MenuItem();
             this.menuItem_openInstallFolder = new System.Windows.Forms.MenuItem();
+            this.menuItem8 = new System.Windows.Forms.MenuItem();
+            this.menuItem_openHomepageURL = new System.Windows.Forms.MenuItem();
             this.파일FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.번역TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.정보AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.아네모네트리즈ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.단문번역하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.파일번역하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItem8 = new System.Windows.Forms.MenuItem();
-            this.menuItem_openHomepageURL = new System.Windows.Forms.MenuItem();
+            this.amButton1 = new AnemoneTriz.Controls.AMButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -231,6 +232,17 @@ namespace AnemoneTriz.Forms
             this.menuItem_openInstallFolder.Text = "프로그램 설치 폴더 열기";
             this.menuItem_openInstallFolder.Click += new System.EventHandler(this.menuItem_openInstallFolder_Click);
             // 
+            // menuItem8
+            // 
+            this.menuItem8.Index = 2;
+            this.menuItem8.Text = "-";
+            // 
+            // menuItem_openHomepageURL
+            // 
+            this.menuItem_openHomepageURL.Index = 3;
+            this.menuItem_openHomepageURL.Text = "홈페이지 열기";
+            this.menuItem_openHomepageURL.Click += new System.EventHandler(this.menuItem_openHomepageURL_Click);
+            // 
             // 파일FToolStripMenuItem
             // 
             this.파일FToolStripMenuItem.Name = "파일FToolStripMenuItem";
@@ -267,16 +279,18 @@ namespace AnemoneTriz.Forms
             this.파일번역하기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.파일번역하기ToolStripMenuItem.Text = "파일 번역하기";
             // 
-            // menuItem8
+            // amButton1
             // 
-            this.menuItem8.Index = 2;
-            this.menuItem8.Text = "-";
-            // 
-            // menuItem_openHomepageURL
-            // 
-            this.menuItem_openHomepageURL.Index = 3;
-            this.menuItem_openHomepageURL.Text = "홈페이지 열기";
-            this.menuItem_openHomepageURL.Click += new System.EventHandler(this.menuItem_openHomepageURL_Click);
+            this.amButton1.BackColor = System.Drawing.Color.Transparent;
+            this.amButton1.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.amButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.amButton1.HighlightColor = System.Drawing.Color.Silver;
+            this.amButton1.Location = new System.Drawing.Point(12, 21);
+            this.amButton1.Name = "amButton1";
+            this.amButton1.Size = new System.Drawing.Size(660, 47);
+            this.amButton1.TabIndex = 3;
+            this.amButton1.Text = "반투명 컨트롤!";
+            this.amButton1.UseVisualStyleBackColor = false;
             // 
             // MainForm
             // 
@@ -284,6 +298,7 @@ namespace AnemoneTriz.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(684, 301);
+            this.Controls.Add(this.amButton1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Menu = this.mainMenu1;
@@ -323,6 +338,7 @@ namespace AnemoneTriz.Forms
         private MenuItem menuItem_openInstallFolder;
         private MenuItem menuItem8;
         private MenuItem menuItem_openHomepageURL;
+        private AMButton amButton1;
     }
 }
 
