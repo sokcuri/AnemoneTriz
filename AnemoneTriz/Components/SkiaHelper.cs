@@ -85,7 +85,7 @@ namespace AnemoneTriz.Components
                 info.RowBytes,
                 null, null,
                 "RELEASING");
-            
+
             Skia_Canvas = new SKCanvas(Skia_Bitmap);
             int stride = Size.Width * 4;
             CSharp_Bitmap = new Bitmap(Size.Width, Size.Height, stride, PixelFormat.Format32bppPArgb, scan0);

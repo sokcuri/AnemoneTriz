@@ -6,6 +6,7 @@ using static AnemoneTriz.Interop.NativeMethods;
 using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 
 namespace AnemoneTriz
 {
@@ -53,7 +54,7 @@ namespace AnemoneTriz
 
                 // 뮤텍스 닫기
                 mutex.Close();
-
+                
                 // SkiaSharp.dll이 libSkiaSharp.dll을 Load했을 경우 Reference Count가 올라가므로
                 // Ref.Count가 0이 될때까지 FreeLibrary 시도
                 while(true)
@@ -82,6 +83,11 @@ namespace AnemoneTriz
                     Directory.Delete(tempFolder);
                 }
                 catch { }
+
+                // 프로세스를 강제로 죽인다
+                // 강제로 죽이는 이유는, FreeLibrary를 하면서 Skia쪽의 포인터가 날아갔기 때문에
+                // Main 함수가 끝나고 AccessViolation 예외가 발생하기 때문이다.
+                Process.GetCurrentProcess().Kill();
             }
             else
             {
