@@ -51,10 +51,12 @@ namespace AnemoneTriz.Forms
             this.closeButton.TabIndex = 24;
             this.closeButton.Text = "닫기";
             this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.closeButton_KeyDown);
             this.closeButton.Leave += new System.EventHandler(this.closeButton_Leave);
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Black;
             this.label1.Font = new System.Drawing.Font("맑은 고딕", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -67,6 +69,7 @@ namespace AnemoneTriz.Forms
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Black;
             this.label2.Font = new System.Drawing.Font("맑은 고딕", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -80,6 +83,7 @@ namespace AnemoneTriz.Forms
             // linkLabel1
             // 
             this.linkLabel1.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Black;
             this.linkLabel1.Font = new System.Drawing.Font("맑은 고딕", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -96,6 +100,7 @@ namespace AnemoneTriz.Forms
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Black;
             this.label3.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -108,6 +113,7 @@ namespace AnemoneTriz.Forms
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Black;
             this.label4.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
