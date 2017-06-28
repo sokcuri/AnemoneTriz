@@ -130,21 +130,19 @@ namespace AnemoneTriz.Forms
                               "야겜 안하는새끼는 나중에 커서 지 부모도 잡아먹을새끼가 틀림없어. " +
                               "내가 보증한다. " +
                               "<a href=\"test\">개새끼들...</a>";
-            //taskDialog.Callback = new TaskDialogCallback(this.MyTaskDialogCallback);
 
             taskDialog.FooterCheckBoxText = "이런거 이제 그만 보여줘요";
             taskDialog.FooterCheckBoxChecked = false;
 
-            TaskDialogButton doItButton = new TaskDialogButton("doItbuttons", "그르네");
-            doItButton.Click += (s, ev) => MessageBox.Show("doItButton Clicked");
+            TaskDialogButton okButton = new TaskDialogButton("okButton", "그르네");
+            okButton.Click += (s, ev) => MessageBox.Show("맞어!");
 
-            TaskDialogButton dontDoItButton = new TaskDialogButton("dontDoItButtons", "먼 개소리를");
-            dontDoItButton.Click += (s, ev) => taskDialog.Close();
+            TaskDialogButton closeButton = new TaskDialogButton("closeButton", "먼 개소리를");
+            closeButton.Click += (s, ev) => taskDialog.Close();
 
-            taskDialog.Controls.Add(doItButton);
-            taskDialog.Controls.Add(dontDoItButton);
+            taskDialog.Controls.Add(okButton);
+            taskDialog.Controls.Add(closeButton);
 
-            bool dontShowAgain;
             TaskDialogResult result = taskDialog.Show();
         }
         
@@ -199,21 +197,37 @@ namespace AnemoneTriz.Forms
             
             TaskDialogButton updateButton = new TaskDialogButton("updateButton", "업데이트");
             TaskDialogButton noUpdateButton = new TaskDialogButton("noUpdateButton", "취소");
+            taskDialog.Controls.Add(updateButton);
+            taskDialog.Controls.Add(noUpdateButton);
             noUpdateButton.Click += (s, ev) => taskDialog.Close();
 
-            /*TaskDialogProgressBar tdp = new TaskDialogProgressBar(0, 100, 0);
-            doItButton.Click += (s, ev) =>
+            updateButton.Click += (s, ev) =>
             {
-                if (tdp.Value + 10 < 100)
-                    tdp.Value += 10;
-                else
-                    tdp.Value = 100;
-            };*/
+                var progress = taskDialog.ProgressBar;
+                progress.State = TaskDialogProgressBarState.Normal;
+                progress.Value = 0;
+                Timer timer = new Timer();
+                timer.Interval = 100;
+                timer.Tick += (ts, tev) =>
+                {
+                    if (progress.Value + 1 < 100)
+                    {
+                        progress.Value += 1;
+                    }
+                    else
+                    {
+                        progress.Value = 100;
+                        timer.Stop();
+                        timer.Dispose();
 
-            //taskDialog.Controls.Add(tdp);
+                        MessageBox.Show("업데이트 완료");
+                        taskDialog.Close();
+                    }
+                };
+                timer.Start();
+            };
             
             TaskDialogResult result = taskDialog.Show();
-            MessageBox.Show(taskDialog.FooterCheckBoxChecked.ToString());
         }
     }
 }

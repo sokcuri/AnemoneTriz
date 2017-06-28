@@ -44,7 +44,9 @@ namespace AnemoneTriz.Forms
             this.ShortTranslateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileTranslateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.환경설정OToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OptionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DevelopToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TestFormMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AnemoneTrizAboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.파일FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +55,6 @@ namespace AnemoneTriz.Forms
             this.아네모네트리즈ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.단문번역하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.파일번역하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testFormButton = new AnemoneTriz.Controls.AMButton();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -190,16 +191,32 @@ namespace AnemoneTriz.Forms
             // ToolMenuItem
             // 
             this.ToolMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.환경설정OToolStripMenuItem});
+            this.OptionMenuItem,
+            this.DevelopToolsMenuItem});
             this.ToolMenuItem.Name = "ToolMenuItem";
             this.ToolMenuItem.Size = new System.Drawing.Size(60, 20);
             this.ToolMenuItem.Text = "도구(&O)";
             // 
-            // 환경설정OToolStripMenuItem
+            // OptionMenuItem
             // 
-            this.환경설정OToolStripMenuItem.Name = "환경설정OToolStripMenuItem";
-            this.환경설정OToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.환경설정OToolStripMenuItem.Text = "환경설정(&O)";
+            this.OptionMenuItem.Name = "OptionMenuItem";
+            this.OptionMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.OptionMenuItem.Text = "환경설정(&O)";
+            // 
+            // DevelopToolsMenuItem
+            // 
+            this.DevelopToolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TestFormMenuItem});
+            this.DevelopToolsMenuItem.Name = "DevelopToolsMenuItem";
+            this.DevelopToolsMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.DevelopToolsMenuItem.Text = "개발자 도구";
+            // 
+            // TestFormMenuItem
+            // 
+            this.TestFormMenuItem.Name = "TestFormMenuItem";
+            this.TestFormMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.TestFormMenuItem.Text = "테스트 폼";
+            this.TestFormMenuItem.Click += new System.EventHandler(this.TestFormMenuItem_Click);
             // 
             // AboutMenuItem
             // 
@@ -252,27 +269,12 @@ namespace AnemoneTriz.Forms
             this.파일번역하기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.파일번역하기ToolStripMenuItem.Text = "파일 번역하기";
             // 
-            // testFormButton
-            // 
-            this.testFormButton.BackColor = System.Drawing.Color.White;
-            this.testFormButton.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.testFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.testFormButton.HighlightColor = System.Drawing.Color.Silver;
-            this.testFormButton.Location = new System.Drawing.Point(0, 27);
-            this.testFormButton.Name = "testFormButton";
-            this.testFormButton.Size = new System.Drawing.Size(75, 23);
-            this.testFormButton.TabIndex = 4;
-            this.testFormButton.Text = "Test Form";
-            this.testFormButton.UseVisualStyleBackColor = false;
-            this.testFormButton.Click += new System.EventHandler(this.testFormButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(684, 301);
-            this.Controls.Add(this.testFormButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -306,12 +308,13 @@ namespace AnemoneTriz.Forms
         private System.Windows.Forms.ToolStripMenuItem FileTranslateMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AnemoneTrizAboutMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 환경설정OToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OptionMenuItem;
         private AMButton textModeButton;
         private AMButton ocrModeButton;
         private AMButton clipModeButton;
         private AMButton gameModeButton;
-        private AMButton testFormButton;
+        private ToolStripMenuItem DevelopToolsMenuItem;
+        private ToolStripMenuItem TestFormMenuItem;
     }
 }
 

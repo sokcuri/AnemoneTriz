@@ -42,7 +42,7 @@ namespace AnemoneTriz.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Text = $"{Properties.Resources.ResourceManager.GetString("AnemoneTitleName")} v${Properties.Resources.ResourceManager.GetString("AnemoneVersion")}";
+            Text = $"{Properties.Resources.ResourceManager.GetString("AnemoneTitleName")} v{Properties.Resources.ResourceManager.GetString("AnemoneVersion")}";
         }
 
         private void ocrModeButton_Click(object sender, EventArgs e)
@@ -72,8 +72,8 @@ namespace AnemoneTriz.Forms
             SKHelper.SizeCheckAndRefresh(new RawSize(this.Width, this.Height));
             Invalidate();
         }
-
-        private void testFormButton_Click(object sender, EventArgs e)
+        
+        private void TestFormMenuItem_Click(object sender, EventArgs e)
         {
             TestForm tf = new TestForm();
             tf.Show();
