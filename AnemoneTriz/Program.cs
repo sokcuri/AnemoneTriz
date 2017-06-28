@@ -51,6 +51,9 @@ namespace AnemoneTriz
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
 
+                // 뮤텍스 닫기
+                mutex.Close();
+
                 // SkiaSharp.dll이 libSkiaSharp.dll을 Load했을 경우 Reference Count가 올라가므로
                 // Ref.Count가 0이 될때까지 FreeLibrary 시도
                 while(true)

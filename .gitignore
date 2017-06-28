@@ -292,4 +292,6 @@ __pycache__/
 *.xsd.cs
 
 # End of https://www.gitignore.io/api/visualstudio
-/AnemoneTriz/FodyWeavers.xml
+
+# Fody Files
+FodyWeavers.xml
