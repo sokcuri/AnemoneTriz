@@ -3,13 +3,13 @@ using System.Windows.Forms;
 using AnemoneTriz.Components;
 using SkiaSharp;
 
-namespace AnemoneTriz
+namespace AnemoneTriz.Forms
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         internal SkiaHelper SKHelper { get; set; }
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             DoubleBuffered = true;
@@ -58,7 +58,7 @@ namespace AnemoneTriz
 
         private void AnemoneTrizAboutMenuItem_Click(object sender, EventArgs e)
         {
-            var aboutBox = new AboutBox();
+            var aboutBox = new AboutForm();
             aboutBox.ShowDialog();
         }
 
@@ -71,6 +71,12 @@ namespace AnemoneTriz
         {
             SKHelper.SizeCheckAndRefresh(new RawSize(this.Width, this.Height));
             Invalidate();
+        }
+
+        private void testFormButton_Click(object sender, EventArgs e)
+        {
+            TestForm tf = new TestForm();
+            tf.Show();
         }
     }
 }

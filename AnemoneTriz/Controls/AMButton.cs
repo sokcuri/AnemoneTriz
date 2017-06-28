@@ -17,14 +17,10 @@ namespace AnemoneTriz.Controls
 
         #region property
         [CategoryAttribute("GlowButton Attribute")]
-        [DescriptionAttribute("버튼에 쓰일 기본 색상입니다")]
-        public Color DefaultColor { get; set; }
-
-        [CategoryAttribute("GlowButton Attribute")]
         [DescriptionAttribute("하이라이트시 칠할 색상입니다")]
-        public Color HighlightColor { get; set; }
+        public Color HighlightColor { get; set; } = Color.Silver;
         #endregion
-        
+
         // prevent focus appearance of button
         public override void NotifyDefault(bool value)
         {
@@ -69,7 +65,7 @@ namespace AnemoneTriz.Controls
         {
             timer.Stop();
             alpha = 0;
-            color = DefaultColor;
+            color = this.BackColor;
             Invalidate();
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Threading;
+using AnemoneTriz.Forms;
 using static AnemoneTriz.Interop.NativeMethods;
 
 namespace AnemoneTriz
@@ -21,7 +22,7 @@ namespace AnemoneTriz
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Form1());
+                Application.Run(new MainForm());
             }
             else
             {

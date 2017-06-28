@@ -2,11 +2,11 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace AnemoneTriz
+namespace AnemoneTriz.Forms
 {
-    partial class AboutBox : Form
+    partial class AboutForm : Form
     {
-        public AboutBox()
+        public AboutForm()
         {
             InitializeComponent();
         }
@@ -30,6 +30,16 @@ namespace AnemoneTriz
             var si = new ProcessStartInfo(url);
             Process.Start(si);
             linkLabel1.LinkVisited = true;
+        }
+
+        private void AboutForm_Activated(object sender, EventArgs e)
+        {
+            closeButton.Focus();
+        }
+
+        private void closeButton_Leave(object sender, EventArgs e)
+        {
+            closeButton.Focus();
         }
     }
 }

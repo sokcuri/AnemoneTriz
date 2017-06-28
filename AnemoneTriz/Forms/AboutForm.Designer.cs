@@ -1,8 +1,8 @@
 ﻿using AnemoneTriz.Controls;
 
-namespace AnemoneTriz
+namespace AnemoneTriz.Forms
 {
-    partial class AboutBox
+    partial class AboutForm
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -29,7 +29,7 @@ namespace AnemoneTriz
         /// </summary>
         private void InitializeComponent()
         {
-            this.okButton = new AMButton();
+            this.closeButton = new AnemoneTriz.Controls.AMButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -37,21 +37,21 @@ namespace AnemoneTriz
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // okButton
+            // closeButton
             // 
-            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.BackColor = System.Drawing.Color.OldLace;
-            this.okButton.DefaultColor = System.Drawing.Color.OldLace;
-            this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.okButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.okButton.HighlightColor = System.Drawing.Color.Wheat;
-            this.okButton.Location = new System.Drawing.Point(573, 367);
-            this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(98, 33);
-            this.okButton.TabIndex = 24;
-            this.okButton.Text = "닫기";
-            this.okButton.UseVisualStyleBackColor = false;
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeButton.BackColor = System.Drawing.Color.OldLace;
+            this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeButton.HighlightColor = System.Drawing.Color.Wheat;
+            this.closeButton.Location = new System.Drawing.Point(573, 367);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(98, 33);
+            this.closeButton.TabIndex = 24;
+            this.closeButton.Text = "닫기";
+            this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.Leave += new System.EventHandler(this.closeButton_Leave);
             // 
             // label1
             // 
@@ -118,9 +118,9 @@ namespace AnemoneTriz
             this.label4.TabIndex = 27;
             this.label4.Text = "배경 캐릭터는 푸른 저편의 포리즘의 아리사카 마시로입니다";
             // 
-            // AboutBox
+            // AboutForm
             // 
-            this.AcceptButton = this.okButton;
+            this.AcceptButton = this.closeButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::AnemoneTriz.Properties.Resources.kawaii_mashiro;
@@ -131,18 +131,19 @@ namespace AnemoneTriz
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.okButton);
+            this.Controls.Add(this.closeButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(700, 450);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(700, 450);
-            this.Name = "AboutBox";
+            this.Name = "AboutForm";
             this.Padding = new System.Windows.Forms.Padding(10, 8, 10, 8);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "아네모네 트리즈는?";
+            this.Activated += new System.EventHandler(this.AboutForm_Activated);
             this.Load += new System.EventHandler(this.AboutBox_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -151,7 +152,7 @@ namespace AnemoneTriz
 
         #endregion
 
-        private AMButton okButton;
+        private AMButton closeButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabel1;

@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AnemoneTriz
+namespace AnemoneTriz.Forms
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -32,7 +32,7 @@ namespace AnemoneTriz
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.textModeButton = new AnemoneTriz.Controls.AMButton();
             this.ocrModeButton = new AnemoneTriz.Controls.AMButton();
@@ -53,6 +53,7 @@ namespace AnemoneTriz
             this.아네모네트리즈ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.단문번역하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.파일번역하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testFormButton = new AnemoneTriz.Controls.AMButton();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +78,6 @@ namespace AnemoneTriz
             // 
             this.textModeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textModeButton.BackColor = System.Drawing.Color.White;
-            this.textModeButton.DefaultColor = System.Drawing.Color.White;
             this.textModeButton.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.textModeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.textModeButton.HighlightColor = System.Drawing.Color.Violet;
@@ -96,7 +96,6 @@ namespace AnemoneTriz
             // 
             this.ocrModeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ocrModeButton.BackColor = System.Drawing.Color.White;
-            this.ocrModeButton.DefaultColor = System.Drawing.Color.White;
             this.ocrModeButton.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.ocrModeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ocrModeButton.HighlightColor = System.Drawing.Color.Aqua;
@@ -115,7 +114,6 @@ namespace AnemoneTriz
             // 
             this.clipModeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.clipModeButton.BackColor = System.Drawing.Color.White;
-            this.clipModeButton.DefaultColor = System.Drawing.Color.White;
             this.clipModeButton.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.clipModeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.clipModeButton.HighlightColor = System.Drawing.Color.Gold;
@@ -134,7 +132,6 @@ namespace AnemoneTriz
             // 
             this.gameModeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gameModeButton.BackColor = System.Drawing.Color.White;
-            this.gameModeButton.DefaultColor = System.Drawing.Color.White;
             this.gameModeButton.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
             this.gameModeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gameModeButton.HighlightColor = System.Drawing.Color.Tomato;
@@ -255,18 +252,33 @@ namespace AnemoneTriz
             this.파일번역하기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.파일번역하기ToolStripMenuItem.Text = "파일 번역하기";
             // 
-            // Form1
+            // testFormButton
+            // 
+            this.testFormButton.BackColor = System.Drawing.Color.White;
+            this.testFormButton.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.testFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.testFormButton.HighlightColor = System.Drawing.Color.Silver;
+            this.testFormButton.Location = new System.Drawing.Point(0, 27);
+            this.testFormButton.Name = "testFormButton";
+            this.testFormButton.Size = new System.Drawing.Size(75, 23);
+            this.testFormButton.TabIndex = 4;
+            this.testFormButton.Text = "Test Form";
+            this.testFormButton.UseVisualStyleBackColor = false;
+            this.testFormButton.Click += new System.EventHandler(this.testFormButton_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(684, 301);
+            this.Controls.Add(this.testFormButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(700, 340);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "아네모네 트리즈";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
@@ -299,6 +311,7 @@ namespace AnemoneTriz
         private AMButton ocrModeButton;
         private AMButton clipModeButton;
         private AMButton gameModeButton;
+        private AMButton testFormButton;
     }
 }
 

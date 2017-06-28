@@ -1,4 +1,4 @@
-﻿namespace AnemoneTriz
+﻿namespace AnemoneTriz.Frames
 {
     partial class AnemoneFrame
     {

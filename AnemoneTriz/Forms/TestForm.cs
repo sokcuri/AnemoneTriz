@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AnemoneTriz
+namespace AnemoneTriz.Forms
 {
-    public partial class AnemoneFrame : Form
+    public partial class TestForm : Form
     {
-        public AnemoneFrame()
+        public TestForm()
         {
             InitializeComponent();
         }

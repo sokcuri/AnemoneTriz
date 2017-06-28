@@ -1,6 +1,6 @@
 ﻿using AnemoneTriz.Controls;
 
-namespace AnemoneTriz
+namespace AnemoneTriz.Forms
 {
     partial class ShortTransBox
     {
