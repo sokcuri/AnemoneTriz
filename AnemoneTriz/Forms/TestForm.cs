@@ -15,6 +15,9 @@ using System.Security.Principal;
 using System.Net;
 using Newtonsoft.Json;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.CSharp;
+using System.CodeDom.Compiler;
+using System.Reflection;
 
 namespace AnemoneTriz.Forms
 {
@@ -228,6 +231,38 @@ namespace AnemoneTriz.Forms
             };
             
             TaskDialogResult result = taskDialog.Show();
+        }
+
+        private void runtimeFunctionTestButton_Click(object sender, EventArgs e)
+        {
+            string function_context = "x + 2 * y";
+            string code = @"
+                using System;
+            
+                namespace UserFunctions
+                {                
+                    public class BinaryFunction
+                    {                
+                        public static double Function(double x, double y)
+                        {
+                            return func_xy;
+                        }
+                    }
+                }
+            ";
+
+            string finalCode = code.Replace("func_xy", function_context);
+
+            CSharpCodeProvider provider = new CSharpCodeProvider();
+            CompilerResults results = provider.CompileAssemblyFromSource(new CompilerParameters(), finalCode);
+
+            Type binaryFunction = results.CompiledAssembly.GetType("UserFunctions.BinaryFunction");
+            MethodInfo function = binaryFunction.GetMethod("Function");
+
+            var betterFunction = (Func<double, double, double>)Delegate.CreateDelegate
+            (typeof(Func<double, double, double>), function);
+
+            MessageBox.Show($"{function_context} = {betterFunction(2, 3)}");
         }
     }
 }

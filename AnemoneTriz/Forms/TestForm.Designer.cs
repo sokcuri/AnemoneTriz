@@ -35,6 +35,7 @@
             this.uacRequestTestButton = new AnemoneTriz.Controls.AMButton();
             this.jsonTestButton = new AnemoneTriz.Controls.AMButton();
             this.taskDialogTest = new AnemoneTriz.Controls.AMButton();
+            this.runtimeFunctionTestButton = new AnemoneTriz.Controls.AMButton();
             this.SuspendLayout();
             // 
             // updateTestButton
@@ -114,11 +115,25 @@
             this.taskDialogTest.UseVisualStyleBackColor = true;
             this.taskDialogTest.Click += new System.EventHandler(this.taskDialogTest_Click);
             // 
+            // runtimeFunctionTestButton
+            // 
+            this.runtimeFunctionTestButton.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.runtimeFunctionTestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.runtimeFunctionTestButton.HighlightColor = System.Drawing.Color.Silver;
+            this.runtimeFunctionTestButton.Location = new System.Drawing.Point(185, 27);
+            this.runtimeFunctionTestButton.Name = "runtimeFunctionTestButton";
+            this.runtimeFunctionTestButton.Size = new System.Drawing.Size(133, 31);
+            this.runtimeFunctionTestButton.TabIndex = 0;
+            this.runtimeFunctionTestButton.Text = "Runtime-Func Test";
+            this.runtimeFunctionTestButton.UseVisualStyleBackColor = true;
+            this.runtimeFunctionTestButton.Click += new System.EventHandler(this.runtimeFunctionTestButton_Click);
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(518, 335);
+            this.Controls.Add(this.runtimeFunctionTestButton);
             this.Controls.Add(this.taskDialogTest);
             this.Controls.Add(this.jsonTestButton);
             this.Controls.Add(this.uacRequestTestButton);
@@ -140,5 +155,6 @@
         private Controls.AMButton uacRequestTestButton;
         private Controls.AMButton jsonTestButton;
         private Controls.AMButton taskDialogTest;
+        private Controls.AMButton runtimeFunctionTestButton;
     }
 }
