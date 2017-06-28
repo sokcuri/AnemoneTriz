@@ -32,31 +32,34 @@ namespace AnemoneTriz.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.textModeButton = new AnemoneTriz.Controls.AMButton();
             this.ocrModeButton = new AnemoneTriz.Controls.AMButton();
             this.clipModeButton = new AnemoneTriz.Controls.AMButton();
             this.gameModeButton = new AnemoneTriz.Controls.AMButton();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.FIleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TranslateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShortTranslateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FileTranslateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OptionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DevelopToolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TestFormMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AnemoneTrizAboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.menuItem_shortTranslate = new System.Windows.Forms.MenuItem();
+            this.menuItem10 = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.menuItem6 = new System.Windows.Forms.MenuItem();
+            this.menuItem7 = new System.Windows.Forms.MenuItem();
+            this.menuItem_developTestForm = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.menuItem_aboutAnemoneTriz = new System.Windows.Forms.MenuItem();
+            this.menuItem_openInstallFolder = new System.Windows.Forms.MenuItem();
             this.파일FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.번역TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.정보AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.아네모네트리즈ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.단문번역하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.파일번역하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem8 = new System.Windows.Forms.MenuItem();
+            this.menuItem_openHomepageURL = new System.Windows.Forms.MenuItem();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -147,91 +150,86 @@ namespace AnemoneTriz.Forms
             this.gameModeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.gameModeButton.UseVisualStyleBackColor = false;
             // 
-            // menuStrip1
+            // mainMenu1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FIleMenuItem,
-            this.TranslateMenuItem,
-            this.ToolMenuItem,
-            this.AboutMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(684, 24);
-            this.menuStrip1.TabIndex = 3;
-            this.menuStrip1.Text = "menuStrip1";
+            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1,
+            this.menuItem3,
+            this.menuItem2,
+            this.menuItem4});
             // 
-            // FIleMenuItem
+            // menuItem1
             // 
-            this.FIleMenuItem.Name = "FIleMenuItem";
-            this.FIleMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.FIleMenuItem.Text = "파일(&F)";
+            this.menuItem1.Index = 0;
+            this.menuItem1.Text = "파일(&F)";
             // 
-            // TranslateMenuItem
+            // menuItem3
             // 
-            this.TranslateMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShortTranslateMenuItem,
-            this.FileTranslateMenuItem});
-            this.TranslateMenuItem.Name = "TranslateMenuItem";
-            this.TranslateMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.TranslateMenuItem.Text = "번역(&T)";
+            this.menuItem3.Index = 1;
+            this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem_shortTranslate,
+            this.menuItem10});
+            this.menuItem3.Text = "번역(&T)";
             // 
-            // ShortTranslateMenuItem
+            // menuItem_shortTranslate
             // 
-            this.ShortTranslateMenuItem.Name = "ShortTranslateMenuItem";
-            this.ShortTranslateMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.ShortTranslateMenuItem.Text = "단문 번역하기(&S)";
-            this.ShortTranslateMenuItem.Click += new System.EventHandler(this.ShortTranslateMenuItem_Click);
+            this.menuItem_shortTranslate.Index = 0;
+            this.menuItem_shortTranslate.Text = "단문 번역(&T)";
+            this.menuItem_shortTranslate.Click += new System.EventHandler(this.menuItem_shortTranslate_Click);
             // 
-            // FileTranslateMenuItem
+            // menuItem10
             // 
-            this.FileTranslateMenuItem.Name = "FileTranslateMenuItem";
-            this.FileTranslateMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.FileTranslateMenuItem.Text = "파일 번역하기(&F)";
+            this.menuItem10.Index = 1;
+            this.menuItem10.Text = "텍스트 번역(&F)";
             // 
-            // ToolMenuItem
+            // menuItem2
             // 
-            this.ToolMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.OptionMenuItem,
-            this.DevelopToolsMenuItem});
-            this.ToolMenuItem.Name = "ToolMenuItem";
-            this.ToolMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.ToolMenuItem.Text = "도구(&O)";
+            this.menuItem2.Index = 2;
+            this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem6,
+            this.menuItem7});
+            this.menuItem2.Text = "도구(&T)";
             // 
-            // OptionMenuItem
+            // menuItem6
             // 
-            this.OptionMenuItem.Name = "OptionMenuItem";
-            this.OptionMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.OptionMenuItem.Text = "환경설정(&O)";
+            this.menuItem6.Index = 0;
+            this.menuItem6.Text = "환경 설정(&O)";
             // 
-            // DevelopToolsMenuItem
+            // menuItem7
             // 
-            this.DevelopToolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TestFormMenuItem});
-            this.DevelopToolsMenuItem.Name = "DevelopToolsMenuItem";
-            this.DevelopToolsMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.DevelopToolsMenuItem.Text = "개발자 도구";
+            this.menuItem7.Index = 1;
+            this.menuItem7.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem_developTestForm});
+            this.menuItem7.Text = "개발자 도구(&D)";
             // 
-            // TestFormMenuItem
+            // menuItem_developTestForm
             // 
-            this.TestFormMenuItem.Name = "TestFormMenuItem";
-            this.TestFormMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.TestFormMenuItem.Text = "테스트 폼";
-            this.TestFormMenuItem.Click += new System.EventHandler(this.TestFormMenuItem_Click);
+            this.menuItem_developTestForm.Index = 0;
+            this.menuItem_developTestForm.Text = "테스트 폼(&T)";
+            this.menuItem_developTestForm.Click += new System.EventHandler(this.menuItem_developTestForm_Click);
             // 
-            // AboutMenuItem
+            // menuItem4
             // 
-            this.AboutMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AnemoneTrizAboutMenuItem});
-            this.AboutMenuItem.Name = "AboutMenuItem";
-            this.AboutMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.AboutMenuItem.Text = "정보(&A)";
+            this.menuItem4.Index = 3;
+            this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem_aboutAnemoneTriz,
+            this.menuItem_openInstallFolder,
+            this.menuItem8,
+            this.menuItem_openHomepageURL});
+            this.menuItem4.Text = "도움말(&A)";
             // 
-            // AnemoneTrizAboutMenuItem
+            // menuItem_aboutAnemoneTriz
             // 
-            this.AnemoneTrizAboutMenuItem.Name = "AnemoneTrizAboutMenuItem";
-            this.AnemoneTrizAboutMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.AnemoneTrizAboutMenuItem.Text = "아네모네 트리즈";
-            this.AnemoneTrizAboutMenuItem.Click += new System.EventHandler(this.AnemoneTrizAboutMenuItem_Click);
+            this.menuItem_aboutAnemoneTriz.Index = 0;
+            this.menuItem_aboutAnemoneTriz.Shortcut = System.Windows.Forms.Shortcut.F1;
+            this.menuItem_aboutAnemoneTriz.Text = "아네모네 트리즈";
+            this.menuItem_aboutAnemoneTriz.Click += new System.EventHandler(this.menuItem_aboutAnemoneTriz_Click);
+            // 
+            // menuItem_openInstallFolder
+            // 
+            this.menuItem_openInstallFolder.Index = 1;
+            this.menuItem_openInstallFolder.Text = "프로그램 설치 폴더 열기";
+            this.menuItem_openInstallFolder.Click += new System.EventHandler(this.menuItem_openInstallFolder_Click);
             // 
             // 파일FToolStripMenuItem
             // 
@@ -269,6 +267,17 @@ namespace AnemoneTriz.Forms
             this.파일번역하기ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.파일번역하기ToolStripMenuItem.Text = "파일 번역하기";
             // 
+            // menuItem8
+            // 
+            this.menuItem8.Index = 2;
+            this.menuItem8.Text = "-";
+            // 
+            // menuItem_openHomepageURL
+            // 
+            this.menuItem_openHomepageURL.Index = 3;
+            this.menuItem_openHomepageURL.Text = "홈페이지 열기";
+            this.menuItem_openHomepageURL.Click += new System.EventHandler(this.menuItem_openHomepageURL_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -276,45 +285,44 @@ namespace AnemoneTriz.Forms
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(684, 301);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.Menu = this.mainMenu1;
             this.MinimumSize = new System.Drawing.Size(700, 340);
             this.Name = "MainForm";
             this.Text = "아네모네 트리즈";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.panel1.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MainMenu mainMenu1;
         private System.Windows.Forms.ToolStripMenuItem 파일FToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 번역TToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 단문번역하기ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 파일번역하기ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 정보AToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 아네모네트리즈ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem FIleMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TranslateMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem AboutMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ShortTranslateMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem FileTranslateMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem AnemoneTrizAboutMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ToolMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem OptionMenuItem;
         private AMButton textModeButton;
         private AMButton ocrModeButton;
         private AMButton clipModeButton;
         private AMButton gameModeButton;
-        private ToolStripMenuItem DevelopToolsMenuItem;
-        private ToolStripMenuItem TestFormMenuItem;
+        private MenuItem menuItem1;
+        private MenuItem menuItem2;
+        private MenuItem menuItem3;
+        private MenuItem menuItem6;
+        private MenuItem menuItem4;
+        private MenuItem menuItem_aboutAnemoneTriz;
+        private MenuItem menuItem_shortTranslate;
+        private MenuItem menuItem10;
+        private MenuItem menuItem7;
+        private MenuItem menuItem_developTestForm;
+        private MenuItem menuItem_openInstallFolder;
+        private MenuItem menuItem8;
+        private MenuItem menuItem_openHomepageURL;
     }
 }
 
