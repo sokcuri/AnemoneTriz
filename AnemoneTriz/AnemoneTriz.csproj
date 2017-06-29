@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="Interop\NativeMethods.cs" />
     <Compile Include="Components\SkiaHelper.cs" />
+    <Compile Include="Components\Singleton.cs" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>

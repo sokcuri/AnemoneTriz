@@ -56,24 +56,22 @@ namespace AnemoneTriz.Forms
         }
         private void menuItem_aboutAnemoneTriz_Click(object sender, EventArgs e)
         {
-            var aboutBox = new AboutForm();
-            aboutBox.ShowDialog();
+            Singleton<AboutForm>.Instance.ShowDialog();
         }
         private void menuItem_shortTranslate_Click(object sender, EventArgs e)
         {
-            var shortTransBox = new ShortTransBox();
-            shortTransBox.Show();
+            Singleton<ShortTransBox>.Instance.Show();
+            Singleton<ShortTransBox>.Instance.BringToFront();
         }
         private void menuItem_developTestForm_Click(object sender, EventArgs e)
         {
-            TestForm tf = new TestForm();
-            tf.Show();
+            Singleton<TestForm>.Instance.Show();
+            Singleton<TestForm>.Instance.BringToFront();
         }
         private void menuItem_openInstallFolder_Click(object sender, EventArgs e)
         {
             Process.Start(AppDomain.CurrentDomain.BaseDirectory);
         }
-
         private void menuItem_openHomepageURL_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://sokcuri.neko.kr/anemone");
