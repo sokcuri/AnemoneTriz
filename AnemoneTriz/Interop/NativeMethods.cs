@@ -74,6 +74,9 @@ namespace AnemoneTriz.Interop
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
 
+        [DllImport("WinInet.dll", PreserveSig = true, SetLastError = true)]
+        public static extern void DeleteUrlCacheEntry(string url);
+
         [DllImport("comctl32.dll", CharSet = CharSet.Unicode, EntryPoint = "TaskDialog")]
         public static extern int _TaskDialog(IntPtr hWndParent, IntPtr hInstance, String pszWindowTitle, String pszMainInstruction, String pszContent, int dwCommonButtons, IntPtr pszIcon, out int pnButton);
         

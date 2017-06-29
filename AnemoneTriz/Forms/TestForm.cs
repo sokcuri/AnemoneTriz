@@ -18,6 +18,8 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.Reflection;
+using System.Net.Cache;
+using static AnemoneTriz.Interop.NativeMethods;
 
 namespace AnemoneTriz.Forms
 {
@@ -110,7 +112,14 @@ namespace AnemoneTriz.Forms
         }
         public static async Task<List<T>> GetResponseAsync<T>(string url)
         {
+            // 존재하는 캐시 지우기
+            DeleteUrlCacheEntry(url);
+
+            // 캐시 저장안함 폴리시를 리퀘스트에 설정
+            HttpRequestCachePolicy cachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.CachePolicy = cachePolicy;
+
             var response = (HttpWebResponse)await Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null);
 
             Stream stream = response.GetResponseStream();
@@ -122,7 +131,14 @@ namespace AnemoneTriz.Forms
 
         public static async Task<string> GetResponseAsync(string url)
         {
-            HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+            // 존재하는 캐시 지우기
+            DeleteUrlCacheEntry(url);
+
+            // 캐시 저장안함 폴리시를 리퀘스트에 설정
+            HttpRequestCachePolicy cachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.CachePolicy = cachePolicy;
+
             var response = await Task.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null) as HttpWebResponse;
 
             Stream stream = response.GetResponseStream();
@@ -132,14 +148,67 @@ namespace AnemoneTriz.Forms
             return text;
         }
 
+        public static async Task<bool> GetDownloadAsync(string url, TaskDialog taskDialog)
+        {
+            // 존재하는 캐시 지우기
+            DeleteUrlCacheEntry(url);
+
+            // 캐시 저장안함 폴리시를 리퀘스트에 설정
+            HttpRequestCachePolicy cachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.CachePolicy = cachePolicy;
+            
+            var response = await Task.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null) as HttpWebResponse;
+            long contentLength = response.ContentLength;
+            taskDialog.ProgressBar.Maximum = 100;
+
+            Stream stream = response.GetResponseStream();
+
+            bool success = await Task<bool>.Run(() =>
+            {
+                long receivedBytes = 0;
+                byte[] buffer = new byte[8 * 1024];
+                int len;
+
+                try
+                {
+                    using (var output = new FileStream("update.zip", FileMode.Create, FileAccess.Write))
+                    while ((len = stream.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        receivedBytes += len;
+                        var percentage = ((double)receivedBytes * 100.0) / contentLength;
+                        if (taskDialog != null && taskDialog.ProgressBar != null)
+                            taskDialog.ProgressBar.Value = Convert.ToInt32(percentage);
+
+                        output.Write(buffer, 0, len);
+                    }
+                }
+                catch (System.IO.IOException)
+                {
+                    MessageBox.Show("업데이트 파일을 작성할 수 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                return true;
+            });
+            if (!success)
+            {
+                taskDialog.ProgressBar.State = TaskDialogProgressBarState.Error;
+                taskDialog.ProgressBar.Value = 100;
+                return false;
+            }
+            taskDialog.ProgressBar.Value = 100;
+            await Task.Delay(1000);
+            return true;
+        }
+        
         private async void jsonTestButton_Click(object sender, EventArgs e)
         {
             var task = GetResponseAsync("http://www.redmine.org/issues.json");
             var text = await task;
             MessageBox.Show(text);
         }
-
-        private void taskDialogTest_Jinsei_Click(object sender, EventArgs e)
+        
+        private void taskDialogTest_Click(object sender, EventArgs e)
         {
             TaskDialog taskDialog = new TaskDialog();
             taskDialog.Caption = "인생에 대해서..";
@@ -168,7 +237,7 @@ namespace AnemoneTriz.Forms
             TaskDialogResult result = taskDialog.Show();
         }
         
-        private void taskDialogTest_Click(object sender, EventArgs e)
+        private void UpdateProcess(UpdateInfo updateInfo,  Func<TaskDialog, Task <bool>> updateFunc)
         {
             TaskDialog taskDialog = new TaskDialog()
             {
@@ -181,8 +250,11 @@ namespace AnemoneTriz.Forms
                 Text = "업데이트를 진행할까요?"
             };
 
-            var updateText = "<a href=\"http://sokcuri.neko.kr/anemone\">아네모네 트리즈 (3.00.170628)</a>\n\n";
-            updateText += "자동 업데이트 테스트";
+            var updateTitle = updateInfo.Title.Replace("{Version}", updateInfo.Version);
+            if (updateInfo.Link != string.Empty)
+                updateTitle = $"<a href=\"{updateInfo.Link}\">{updateTitle}</a>";
+
+            var updateText = $"{updateTitle}\n\n{updateInfo.Content}";
             taskDialog.Opened += (s, ev) =>
             {
                 TaskDialog td = s as TaskDialog;
@@ -201,54 +273,24 @@ namespace AnemoneTriz.Forms
             taskDialog.HyperlinkClick += (s, ev) =>
             {
                 if (ev.LinkText.ToLower().IndexOf("http://") != -1)
-                    System.Diagnostics.Process.Start(ev.LinkText); 
+                    System.Diagnostics.Process.Start(ev.LinkText);
             };
-            /*
-             * * Use TaskDialogCommandLInk * *
-            TaskDialogCommandLink updateLink = new TaskDialogCommandLink("updateLink", "업데이트를 진행합니다")
-            {
-                UseElevationIcon = true,
-                Instruction = "업데이트를 진행해주시면 더 열심히 개발하겠습니다. 약속할게요"
-            };
-            TaskDialogCommandLink noUpdateLink = new TaskDialogCommandLink("noUpdateLink", "업데이트를 하지 않기");
-            
-            noUpdateLink.Click += (s, ev) => taskDialog.Close();
-            taskDialog.Controls.Add(updateLink);
-            taskDialog.Controls.Add(noUpdateLink);
-            */
-            
+
             TaskDialogButton updateButton = new TaskDialogButton("updateButton", "업데이트");
             TaskDialogButton noUpdateButton = new TaskDialogButton("noUpdateButton", "취소");
             taskDialog.Controls.Add(updateButton);
             taskDialog.Controls.Add(noUpdateButton);
-            noUpdateButton.Click += (s, ev) => taskDialog.Close();
-
-            updateButton.Click += (s, ev) =>
+            noUpdateButton.Click += (s, ev) =>
             {
-                var progress = taskDialog.ProgressBar;
-                progress.State = TaskDialogProgressBarState.Normal;
-                progress.Value = 0;
-                Timer timer = new Timer();
-                timer.Interval = 100;
-                timer.Tick += (ts, tev) =>
-                {
-                    if (progress.Value + 1 < 100)
-                    {
-                        progress.Value += 1;
-                    }
-                    else
-                    {
-                        progress.Value = 100;
-                        timer.Stop();
-                        timer.Dispose();
-
-                        MessageBox.Show("업데이트 완료");
-                        taskDialog.Close();
-                    }
-                };
-                timer.Start();
+                taskDialog.Close();
             };
-            
+
+            updateButton.Click += async (s, ev) =>
+            {
+                if (await updateFunc(taskDialog))
+                    taskDialog.Close();
+            };
+
             TaskDialogResult result = taskDialog.Show();
         }
 
@@ -282,6 +324,59 @@ namespace AnemoneTriz.Forms
             (typeof(Func<double, double, double>), function);
 
             MessageBox.Show($"{function_context} = {betterFunction(2, 3)}");
+        }
+
+        public class UpdateInfo
+        {
+            public string Title { get; set; }
+            public string Version { get; set; }
+            public string Target { get; set; }
+            public string Link { get; set; }
+            public string Content { get; set; }
+        }
+
+        private async void updateTestButton_Click(object sender, EventArgs e)
+        {
+            UpdateInfo updateInfo;
+            string receiveText;
+            try
+            {
+                // 업데이트 정보를 가져옴
+                receiveText = await GetResponseAsync("https://raw.githubusercontent.com/sokcuri/AnemoneTriz/update/update.json");
+                updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(receiveText);
+                if (updateInfo == null)
+                    throw new Exception("JSON Deserialize 실패");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"업데이트 정보를 가져올 수 없습니다. {exception.Message}");
+                return;
+            }
+            
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.FileVersion;
+
+            UpdateProcess(updateInfo, async (taskDialog) =>
+            {
+                (taskDialog.Controls["updateButton"] as TaskDialogButton).Enabled = false;
+                (taskDialog.Controls["noUpdateButton"] as TaskDialogButton).Enabled = false;
+
+                taskDialog.ProgressBar.State = TaskDialogProgressBarState.Normal;
+                taskDialog.ProgressBar.Value = 0;
+
+                // 파일 다운로드
+                bool success = await GetDownloadAsync("https://github.com/sokcuri/TweetDeckPlayer/releases/download/2.22/TweetDeckPlayer-v2.22-win32-x64.zip", taskDialog);
+
+                if (!success)
+                {
+                    (taskDialog.Controls["updateButton"] as TaskDialogButton).Enabled = true;
+                    (taskDialog.Controls["noUpdateButton"] as TaskDialogButton).Enabled = true;
+                    taskDialog.ProgressBar.Value = 100;
+                    return false;
+                }
+                return true;
+            });
         }
     }
 }

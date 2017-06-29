@@ -128,6 +128,7 @@
             this.updateTestButton.TabIndex = 0;
             this.updateTestButton.Text = "Update Test";
             this.updateTestButton.UseVisualStyleBackColor = true;
+            this.updateTestButton.Click += new System.EventHandler(this.updateTestButton_Click);
             // 
             // manualRestartTestButton
             // 
