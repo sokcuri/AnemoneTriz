@@ -225,7 +225,7 @@ namespace AnemoneTriz.Update
             }
             catch (Win32Exception)
             {
-                MessageBox.Show("업데이트를 위해서는 관리자 권한이 필요합니다.\n업데이트 버튼을 다시 누른 후 관리자 권한을 요구하는 메시지에 \"예\"를 눌러주세요.", "업데이트 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("업데이트 파일의 실행을 실패했습니다.", "업데이트 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;
