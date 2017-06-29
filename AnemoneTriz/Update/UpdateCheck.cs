@@ -20,6 +20,7 @@ namespace AnemoneTriz.Update
 {
     static class UpdateCheck
     {
+        private static string updateURL = @"https://raw.githubusercontent.com/sokcuri/AnemoneTriz/update/update.json";
         private static string zipPath = $"{AppDomain.CurrentDomain.BaseDirectory}update.zip";
         private static string updateFolder = $"{AppDomain.CurrentDomain.BaseDirectory}Update\\";
 
@@ -208,7 +209,7 @@ namespace AnemoneTriz.Update
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             string olderVersion = fvi.FileVersion;
 
-            startInfo.Arguments = $"--update " +
+            startInfo.Arguments = $"--updating " +
                                   $"--olderVersion:\"{Convert.ToBase64String(Encoding.UTF8.GetBytes(olderVersion))}\" " +
                                   $"--newerVersion:\"{Convert.ToBase64String(Encoding.UTF8.GetBytes(newerVersion))}\" " +
                                   $"--BaseDirectory:\"{Convert.ToBase64String(Encoding.UTF8.GetBytes(AppDomain.CurrentDomain.BaseDirectory))}\" " +
@@ -322,7 +323,7 @@ namespace AnemoneTriz.Update
             try
             {
                 // 업데이트 정보를 가져옴
-                receiveText = await GetResponseAsync("https://raw.githubusercontent.com/sokcuri/AnemoneTriz/update/update.json");
+                receiveText = await GetResponseAsync($"{updateURL}?{Environment.TickCount}");
                 updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(receiveText);
                 if (updateInfo == null)
                     state = UpdateState.JSON_DESERIALIZE_FAILED;
@@ -364,7 +365,7 @@ namespace AnemoneTriz.Update
             try
             {
                 // 업데이트 정보를 가져옴
-                receiveText = await GetResponseAsync("https://raw.githubusercontent.com/sokcuri/AnemoneTriz/update/update.json");
+                receiveText = await GetResponseAsync($"{updateURL}?{Environment.TickCount}");
                 updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(receiveText);
                 if (updateInfo == null)
                     throw new Exception("JSON Deserialize 실패");
@@ -414,7 +415,7 @@ namespace AnemoneTriz.Update
                     taskDialog.ProgressBar.Value = 0;
 
                     // 파일 다운로드
-                    if (!await GetDownloadAsync(updateInfo.Target, taskDialog))
+                    if (!await GetDownloadAsync($"{updateInfo.Target}?{Environment.TickCount}", taskDialog))
                         goto UpdateFailed;
 
                     // 압축 풀기

@@ -23,20 +23,6 @@ namespace AnemoneTriz
         {
             if (args.Length > 0)
             {
-                // 업데이트를 하기 위해 UAC 권한으로 넘어온 케이스
-                if (args[0] == "--update")
-                {
-                    UpdateCheck.ForceRun = true;
-                    UpdateCheck.CreateUpdateWindow();
-                }
-
-                // 파일 처리를 하기 위해 업데이트된 파일로 임시 실행
-                if (args[0] == "--updating")
-                {
-                    Updater.UpdateProcess(args);
-                    return;
-                }
-
                 // 업데이트 완료
                 if (args[0] == "--updated")
                 {
@@ -45,6 +31,21 @@ namespace AnemoneTriz
                     MessageBox.Show("업데이트 되었습니다", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
+
+                // 업데이트를 하기 위해 UAC 권한으로 넘어온 케이스
+                else if (args[0] == "--update")
+                {
+                    UpdateCheck.ForceRun = true;
+                    UpdateCheck.CreateUpdateWindow();
+                }
+
+                // 파일 처리를 하기 위해 업데이트된 파일로 임시 실행
+                else if (args[0] == "--updating")
+                {
+                    Updater.UpdateProcess(args);
+                    return;
+                }
+
             }
             else
             {
