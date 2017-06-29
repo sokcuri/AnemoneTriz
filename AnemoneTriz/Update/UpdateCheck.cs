@@ -266,7 +266,7 @@ namespace AnemoneTriz.Update
             };
             taskDialog.HyperlinkClick += (s, ev) =>
             {
-                if (ev.LinkText.ToLower().IndexOf("http://") != -1)
+                if (ev.LinkText.ToLower().IndexOf("http://") != -1 || ev.LinkText.ToLower().IndexOf("https://") != -1)
                     System.Diagnostics.Process.Start(ev.LinkText);
             };
 
