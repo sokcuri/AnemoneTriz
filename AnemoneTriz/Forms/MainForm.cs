@@ -40,10 +40,14 @@ namespace AnemoneTriz.Forms
             };
             
             SKHelper.SwapChain();
+
+
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            Text = $"{Properties.Resources.ResourceManager.GetString("AnemoneTitleName")} v{Properties.Resources.ResourceManager.GetString("AnemoneVersion")}";
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            Text = $"{Properties.Resources.ResourceManager.GetString("AnemoneTitleName")} v{fvi.FileVersion}";
         }
         private void Form1_SizeChanged(object sender, EventArgs e)
         {

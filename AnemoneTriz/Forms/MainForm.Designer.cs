@@ -289,6 +289,7 @@ namespace AnemoneTriz.Forms
             this.Menu = this.mainMenu1;
             this.MinimumSize = new System.Drawing.Size(700, 340);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "아네모네 트리즈";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);

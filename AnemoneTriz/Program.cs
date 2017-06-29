@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
+using AnemoneTriz.Update;
 
 namespace AnemoneTriz
 {
@@ -18,8 +19,50 @@ namespace AnemoneTriz
         /// 해당 응용 프로그램의 주 진입점입니다.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            if (args.Length > 0)
+            {
+                // 업데이트를 하기 위해 UAC 권한으로 넘어온 케이스
+                if (args[0] == "--update")
+                {
+                    UpdateCheck.ForceRun = true;
+                    UpdateCheck.CreateUpdateWindow();
+                }
+
+                // 파일 처리를 하기 위해 업데이트된 파일로 임시 실행
+                if (args[0] == "--updating")
+                {
+                    Updater.UpdateProcess(args);
+                    return;
+                }
+
+                // 업데이트 완료
+                if (args[0] == "--updated")
+                {
+                    // 업데이트 폴더 삭제
+                    UpdateCheck.CleanFolder();
+                    MessageBox.Show("업데이트 되었습니다", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+            }
+            else
+            {
+                // 업데이트 확인
+                UpdateCheck.CheckUpdateAvaliable((UpdateCheck.UpdateState updateState) =>
+                {
+                    switch(updateState)
+                    {
+                        case UpdateCheck.UpdateState.UPDATE_AVALIABLE:
+                            UpdateCheck.CreateUpdateWindow();
+                            break;
+                    }
+                });
+            }
+
+
+            
+
             bool created = false;
             mutex = new Mutex(true, "AnemoneTrizMutex", out created);
             if (created)
@@ -92,7 +135,9 @@ namespace AnemoneTriz
             else
             {
                 // 아네모네 인스턴스가 이미 있는 경우 존재하는 인스턴스 윈도우를 활성화합니다
-                IntPtr handle = FindWindow(null, $"{Properties.Resources.ResourceManager.GetString("AnemoneTitleName")} v{Properties.Resources.ResourceManager.GetString("AnemoneVersion")}");
+                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                IntPtr handle = FindWindow(null, $"{Properties.Resources.ResourceManager.GetString("AnemoneTitleName")} v{fvi.FileVersion}");
                 ShowWindow(handle, 5);
                 BringWindowToTop(handle);
                 SetForegroundWindow(handle);

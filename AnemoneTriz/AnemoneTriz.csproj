@@ -56,6 +56,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\anemone.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
@@ -101,6 +104,7 @@
     <Compile Include="Forms\TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Update\UpdateCheck.cs" />
     <Compile Include="Frames\AnemoneFrame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +130,7 @@
     <Compile Include="Interop\NativeMethods.cs" />
     <Compile Include="Components\SkiaHelper.cs" />
     <Compile Include="Components\Singleton.cs" />
+    <Compile Include="Update\Updater.cs" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,6 +148,7 @@
     <EmbeddedResource Include="Forms\TranslateForm.resx">
       <DependentUpon>TranslateForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
