@@ -77,7 +77,7 @@ namespace AnemoneTriz.Controls
                 SKHelper.SizeCheckAndRefresh(new RawSize(this.Width, this.Height));
                 SKHelper.DrawOnGraphics(pevent.Graphics, (SKCanvas canvas) =>
                 {
-                    canvas.Clear(new SKColor(color.R, color.G, color.B, (byte)alpha));
+                    canvas.Clear(new SKColor(color.R, color.G, color.B, (byte)(((float)this.HighlightColor.A / 255) * alpha)));
                 });
             }
         }
