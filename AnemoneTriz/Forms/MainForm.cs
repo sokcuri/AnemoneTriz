@@ -13,8 +13,6 @@ namespace AnemoneTriz.Forms
 
         public MainForm()
         {
-            InitializeComponent();
-            DoubleBuffered = true;
             SKHelper = new SkiaHelper()
             {
                 Size = new RawSize
@@ -38,7 +36,8 @@ namespace AnemoneTriz.Forms
                     }
                 })
             };
-            
+            InitializeComponent();
+            DoubleBuffered = true;
             SKHelper.SwapChain();
 
 
