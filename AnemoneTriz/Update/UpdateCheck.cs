@@ -176,15 +176,19 @@ namespace AnemoneTriz.Update
 
         private static bool runElevateAdmin()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.UseShellExecute = true;
-            startInfo.WorkingDirectory = Environment.CurrentDirectory;
-            startInfo.FileName = Application.ExecutablePath;
-            startInfo.Verb = "runas";
-            startInfo.Arguments = "--update";
             try
             {
-                Process p = Process.Start(startInfo);
+                new Process
+                {
+                    StartInfo =
+                    {
+                        UseShellExecute = true,
+                        WorkingDirectory = Environment.CurrentDirectory,
+                        FileName = Application.ExecutablePath,
+                        Verb = "runas",
+                        Arguments = "--update"
+                    }
+                };
                 Application.Exit();
             }
             catch (Win32Exception)

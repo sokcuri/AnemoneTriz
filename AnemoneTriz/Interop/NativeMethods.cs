@@ -35,6 +35,36 @@ namespace AnemoneTriz.Interop
         [DllImport("user32.dll", ExactSpelling = true)]
         public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
+        [DllImport("user32.dll", EntryPoint = @"SendMessage", CharSet = CharSet.Auto)]
+        public static extern int SendMessageRefRect(IntPtr hWnd, uint msg, int wParam, ref RECT rect);
+
+        [DllImport("user32.dll")]
+        public static extern bool CreateCaret(IntPtr hWnd, IntPtr hBitmap, int nWidth, int nHeight);
+
+        [DllImport("user32.dll")]
+        public static extern bool ShowCaret(IntPtr hWnd);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public readonly int Left;
+            public readonly int Top;
+            public readonly int Right;
+            public readonly int Bottom;
+
+            private RECT(int left, int top, int right, int bottom)
+            {
+                Left = left;
+                Top = top;
+                Right = right;
+                Bottom = bottom;
+            }
+
+            public RECT(System.Drawing.Rectangle r) : this(r.Left, r.Top, r.Right, r.Bottom)
+            {
+            }
+        }
+
         [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
         public static extern IntPtr CreateCompatibleDC(IntPtr hDC);
 

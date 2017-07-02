@@ -104,6 +104,7 @@
     <Compile Include="Forms\TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Translator\ezTransXP.cs" />
     <Compile Include="Update\UpdateCheck.cs" />
     <Compile Include="Frames\AnemoneFrame.cs">
       <SubType>Form</SubType>
@@ -196,6 +197,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\swap_icon.png" />
+    <None Include="Resources\swap_icon4.png" />
     <None Include="FodyWeavers.xml" />
     <Content Include="Resources\anemone.ico" />
     <None Include="Resources\kawaii_mashiro.jpg" />

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
 using AnemoneTriz.Update;
+using AnemoneTriz.Components;
 
 namespace AnemoneTriz
 {
@@ -45,7 +46,6 @@ namespace AnemoneTriz
                     Updater.UpdateProcess(args);
                     return;
                 }
-
             }
             else
             {
@@ -60,10 +60,7 @@ namespace AnemoneTriz
                     }
                 });
             }
-
-
             
-
             bool created = false;
             mutex = new Mutex(true, "AnemoneTrizMutex", out created);
             if (created)
@@ -90,6 +87,9 @@ namespace AnemoneTriz
 
                 // libSkiaSharp를 LoadLibrary
                 IntPtr dllHandle = LoadLibrary($"{tempFolder}libSkiaSharp.dll");
+
+                // 이지트랜스 초기화
+                Translator.ezTransXP.Initialize();
 
                 // 폼 시작
                 Application.EnableVisualStyles();

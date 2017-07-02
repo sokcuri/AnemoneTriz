@@ -118,40 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ocr_jap_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ocr_jap_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="libSkiaSharp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\Packages\SkiaSharp.1.58.0\\runtimes\win7-x86\native\libSkiaSharp.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="caption_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\caption_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ocr_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ocr_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="computer_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\computer_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="anemone_transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\anemone_transparent.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="anemone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\anemone.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clipboard_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clipboard_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="kawaii_mashiro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kawaii_mashiro.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AnemoneTitleName" xml:space="preserve">
     <value>아네모네 트리즈</value>
   </data>
-  <data name="text_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\text_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ocr_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ocr_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ocr_jap_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ocr_jap_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="anemone_transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\anemone_transparent.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="abstract_blue_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\abstract_blue_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="kawaii_mashiro" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\kawaii_mashiro.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="clipboard_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clipboard_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="libSkiaSharp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\Packages\SkiaSharp.1.58.0\\runtimes\win7-x86\native\libSkiaSharp.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="anemone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\anemone.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="text_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\text_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="computer_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\computer_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="swap_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\swap_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

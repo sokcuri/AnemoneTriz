@@ -149,6 +149,7 @@ namespace AnemoneTriz.Forms
             this.gameModeButton.Text = "게임 모드";
             this.gameModeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.gameModeButton.UseVisualStyleBackColor = false;
+            this.gameModeButton.Click += new System.EventHandler(this.gameModeButton_Click);
             // 
             // mainMenu1
             // 
@@ -287,7 +288,7 @@ namespace AnemoneTriz.Forms
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Menu = this.mainMenu1;
-            this.MinimumSize = new System.Drawing.Size(700, 340);
+            this.MinimumSize = new System.Drawing.Size(698, 334);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "아네모네 트리즈";

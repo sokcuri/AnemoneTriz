@@ -4,15 +4,73 @@ using AnemoneTriz.Components;
 using SkiaSharp;
 using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace AnemoneTriz.Forms
 {
     public partial class MainForm : Form
     {
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT awarenessContext);
+
+        [DllImport("SHCore.dll", SetLastError = true)]
+        internal static extern bool SetProcessDpiAwareness(DPI_AWARENESS awareness);
+
+        [DllImport("user32.dll")]
+        internal static extern bool SetProcessDPIAware();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern DPI_AWARENESS_CONTEXT GetThreadDpiAwarenessContext();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern DPI_AWARENESS GetAwarenessFromDpiAwarenessContext(DPI_AWARENESS_CONTEXT awarenessContext);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern uint GetDpiForSystem();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern uint GetDpiForWindow(IntPtr hWnd);
+
+        private static uint prevDpi = 96;
+
+        internal enum DPI_AWARENESS : int
+        {
+            Invalid = -1,
+            Unaware = 0,
+            SystemAware = 1,
+            PerMonitorAware = 2
+        }
+
+        internal enum DPI_AWARENESS_CONTEXT : int
+        {
+            Unaware = 16,
+            SystemAware = 17,
+            PerMonitorAware = 18,
+            PerMonitorAwareV2 = 34
+        }
+
         internal SkiaHelper SKHelper { get; set; }
 
         public MainForm()
         {
+            SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT.PerMonitorAwareV2);
+
+/*
+            using (var g = this.CreateGraphics())
+            {
+                SizeF sngScaleFactor = new SizeF();
+                if (g.DpiX > 96)
+                {
+                    sngScaleFactor.Width = g.DpiX / 96;
+                    sngScaleFactor.Height = g.DpiY / 96;
+                }
+
+                if (this.AutoScaleDimensions == this.CurrentAutoScaleDimensions)
+                {
+                    this.Scale(sngScaleFactor);
+                }
+            }
+  */          
             SKHelper = new SkiaHelper()
             {
                 Size = new RawSize
@@ -39,7 +97,6 @@ namespace AnemoneTriz.Forms
             InitializeComponent();
             DoubleBuffered = true;
             SKHelper.SwapChain();
-
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -80,5 +137,47 @@ namespace AnemoneTriz.Forms
             Process.Start(@"http://sokcuri.neko.kr/anemone");
         }
 
+        protected override void WndProc(ref Message message)
+        {
+            if (SKHelper != null)
+            {
+                switch (message.Msg)
+                {
+                    case 0x02E0: // WM_DPICHANGED
+                        {
+                            uint uDpi = 96;
+                            DPI_AWARENESS dpiAwareness = GetAwarenessFromDpiAwarenessContext(GetThreadDpiAwarenessContext());
+                            switch(dpiAwareness)
+                            {
+                                case DPI_AWARENESS.SystemAware:
+                                    uDpi = GetDpiForSystem();
+                                    break;
+
+                                case DPI_AWARENESS.PerMonitorAware:
+                                    uDpi = GetDpiForWindow(this.Handle);
+                                    break;
+                            }
+                            
+                            //Scale(new SizeF((float)uDpi / 96, (float)uDpi / 96));
+                            //MinimumSize = new Size();
+                            //Width = (int)(Width * ((float)uDpi / prevDpi));
+                            //Height = (int)(Height * ((float)uDpi / prevDpi));
+                            Font = new Font(this.Font.FontFamily, ((float)uDpi / prevDpi) * this.Font.Size, FontStyle.Regular);
+
+                            prevDpi = uDpi;
+                            return;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+            }
+            base.WndProc(ref message);
+        }
+
+        private void gameModeButton_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
