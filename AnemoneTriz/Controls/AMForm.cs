@@ -11,6 +11,7 @@ namespace AnemoneTriz.Controls
 {
     public class AMForm : Form
     {
+        private bool DPIAware { get; set; } = false;
         private uint PreviousDPI { get; set; } = 96;
 
         public AMForm() : base()
@@ -20,6 +21,7 @@ namespace AnemoneTriz.Controls
         protected override void WndProc(ref Message message)
         {
             if (this.IsHandleCreated == true &&
+                this.DPIAware == true && 
                 message.Msg == 0x02E0) // WM_DPICHANGED
             {
                 uint uDpi = 96;
