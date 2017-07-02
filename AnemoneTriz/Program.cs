@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
 using AnemoneTriz.Update;
-using AnemoneTriz.Components;
 
 namespace AnemoneTriz
 {
@@ -90,6 +89,9 @@ namespace AnemoneTriz
 
                 // 이지트랜스 초기화
                 Translator.ezTransXP.Initialize();
+
+                // DPI 세팅
+                SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT.PerMonitorAwareV2);
 
                 // 폼 시작
                 Application.EnableVisualStyles();

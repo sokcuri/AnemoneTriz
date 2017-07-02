@@ -219,5 +219,44 @@ namespace AnemoneTriz.Interop
             LOAD_LIBRARY_SEARCH_USER_DIRS = 0x00000400,
             LOAD_WITH_ALTERED_SEARCH_PATH = 0x00000008
         }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT awarenessContext);
+
+        [DllImport("SHCore.dll", SetLastError = true)]
+        internal static extern bool SetProcessDpiAwareness(DPI_AWARENESS awareness);
+
+        [DllImport("user32.dll")]
+        internal static extern bool SetProcessDPIAware();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern DPI_AWARENESS_CONTEXT GetThreadDpiAwarenessContext();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern DPI_AWARENESS GetAwarenessFromDpiAwarenessContext(DPI_AWARENESS_CONTEXT awarenessContext);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern uint GetDpiForSystem();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern uint GetDpiForWindow(IntPtr hWnd);
+
+        private static uint prevDpi = 96;
+
+        internal enum DPI_AWARENESS : int
+        {
+            Invalid = -1,
+            Unaware = 0,
+            SystemAware = 1,
+            PerMonitorAware = 2
+        }
+
+        internal enum DPI_AWARENESS_CONTEXT : int
+        {
+            Unaware = 16,
+            SystemAware = 17,
+            PerMonitorAware = 18,
+            PerMonitorAwareV2 = 34
+        }
     }
 }

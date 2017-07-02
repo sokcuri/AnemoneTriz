@@ -7,7 +7,7 @@ using static AnemoneTriz.Interop.NativeMethods;
 
 namespace AnemoneTriz.Forms
 {
-    public partial class ShortTransBox : Form
+    public partial class ShortTransBox : AMForm
     {
         public void SetPadding(Control textBox, Padding padding)
         {
@@ -36,5 +36,11 @@ namespace AnemoneTriz.Forms
 
             srcTextBox.Focus();
         }
+
+        protected override void WndProc(ref Message message)
+        { 
+            base.WndProc(ref message);
+        }
+
     }
 }
