@@ -176,19 +176,17 @@ namespace AnemoneTriz.Update
 
         private static bool runElevateAdmin()
         {
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                WorkingDirectory = Environment.CurrentDirectory,
+                FileName = Application.ExecutablePath,
+                Verb = "runas",
+                Arguments = "--update"
+            };
             try
             {
-                new Process
-                {
-                    StartInfo =
-                    {
-                        UseShellExecute = true,
-                        WorkingDirectory = Environment.CurrentDirectory,
-                        FileName = Application.ExecutablePath,
-                        Verb = "runas",
-                        Arguments = "--update"
-                    }
-                };
+                Process p = Process.Start(startInfo);
                 Application.Exit();
             }
             catch (Win32Exception)
@@ -199,7 +197,7 @@ namespace AnemoneTriz.Update
             return true;
         }
 
-        private static bool runUpdateInstance()
+        public static bool runUpdateInstance()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.UseShellExecute = true;
@@ -391,6 +389,7 @@ namespace AnemoneTriz.Update
                 // 실행중인 프로세스가 관리자 권한인지 확인
                 // 관리자 권한이 아닐 경우 관리자 권한을 요구함.
                 WindowsPrincipal pricipal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+                
                 bool hasAdministrativeRight = pricipal.IsInRole(WindowsBuiltInRole.Administrator);
                 if (!hasAdministrativeRight)
                 {

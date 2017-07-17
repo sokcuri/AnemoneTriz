@@ -69,22 +69,23 @@ namespace AnemoneTriz
                 {
                     break;
                 }
-                Task.Delay(1000);
+                Task.Delay(1000).Wait();
 
-                // 업데이트를 위해 강제 종료
-                if (i == 10)
+                // 3초가 지나면 업데이트를 위해 강제 종료
+                if (i == 3)
                 {
                     Process.GetProcessById(pid).Kill();
                 }
             }
 
+            Task.Delay(500).Wait();
             try
             {
-                File.Delete(dic["ExePath"]);
+                File.Move(dic["ExePath"], dic["ExePath"] + ".old");
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("업데이트가 실패했습니다. 파일을 삭제할 수 없습니다.");
+                MessageBox.Show("업데이트가 실패했습니다. 파일을 옮길 수 없습니다.\r\n" + e.Message);
                 return;
             }
 
@@ -92,10 +93,19 @@ namespace AnemoneTriz
             {
                 File.Move(Application.ExecutablePath, dic["ExePath"]);
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("업데이트가 실패했습니다. 파일을 옮길 수 없습니다.");
+                MessageBox.Show("업데이트가 실패했습니다. 파일을 옮길 수 없습니다.\r\n" + e.Message);
                 return;
+            }
+
+            try
+            {
+                File.Delete(dic["ExePath"] + ".old");
+            }
+            catch (Exception e)
+            {
+                // 파일 삭제 실패. 하지만 그대로 진행 가능
             }
 
             //foreach (var s in dic)

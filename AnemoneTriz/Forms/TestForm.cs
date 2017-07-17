@@ -246,5 +246,10 @@ namespace AnemoneTriz.Forms
         {
             UpdateCheck.CreateUpdateWindow();
         }
+
+        private void runUpdateInstTestButton_Click(object sender, EventArgs e)
+        {
+            UpdateCheck.runUpdateInstance();
+        }
     }
 }
