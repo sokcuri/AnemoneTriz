@@ -72,11 +72,10 @@ namespace AnemoneTriz.Forms
             this.panel1.Controls.Add(this.ocrModeButton);
             this.panel1.Controls.Add(this.clipModeButton);
             this.panel1.Controls.Add(this.gameModeButton);
-            this.panel1.Location = new System.Drawing.Point(97, 190);
-            this.panel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.panel1.MinimumSize = new System.Drawing.Size(1047, 218);
+            this.panel1.Location = new System.Drawing.Point(52, 95);
+            this.panel1.MinimumSize = new System.Drawing.Size(564, 109);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1049, 218);
+            this.panel1.Size = new System.Drawing.Size(565, 109);
             this.panel1.TabIndex = 2;
             // 
             // textModeButton
@@ -88,11 +87,10 @@ namespace AnemoneTriz.Forms
             this.textModeButton.HighlightColor = System.Drawing.Color.Violet;
             this.textModeButton.Image = global::AnemoneTriz.Properties.Resources.text_icon;
             this.textModeButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.textModeButton.Location = new System.Drawing.Point(799, 8);
-            this.textModeButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textModeButton.Location = new System.Drawing.Point(430, 4);
             this.textModeButton.Name = "textModeButton";
-            this.textModeButton.Padding = new System.Windows.Forms.Padding(0, 30, 0, 30);
-            this.textModeButton.Size = new System.Drawing.Size(241, 200);
+            this.textModeButton.Padding = new System.Windows.Forms.Padding(0, 15, 0, 15);
+            this.textModeButton.Size = new System.Drawing.Size(130, 100);
             this.textModeButton.TabIndex = 4;
             this.textModeButton.Text = "텍스트 모드";
             this.textModeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -107,11 +105,10 @@ namespace AnemoneTriz.Forms
             this.ocrModeButton.HighlightColor = System.Drawing.Color.Aqua;
             this.ocrModeButton.Image = global::AnemoneTriz.Properties.Resources.ocr_jap_icon;
             this.ocrModeButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ocrModeButton.Location = new System.Drawing.Point(535, 8);
-            this.ocrModeButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ocrModeButton.Location = new System.Drawing.Point(288, 4);
             this.ocrModeButton.Name = "ocrModeButton";
-            this.ocrModeButton.Padding = new System.Windows.Forms.Padding(0, 30, 0, 30);
-            this.ocrModeButton.Size = new System.Drawing.Size(241, 200);
+            this.ocrModeButton.Padding = new System.Windows.Forms.Padding(0, 15, 0, 15);
+            this.ocrModeButton.Size = new System.Drawing.Size(130, 100);
             this.ocrModeButton.TabIndex = 3;
             this.ocrModeButton.Text = "OCR 모드";
             this.ocrModeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -126,15 +123,15 @@ namespace AnemoneTriz.Forms
             this.clipModeButton.HighlightColor = System.Drawing.Color.Gold;
             this.clipModeButton.Image = global::AnemoneTriz.Properties.Resources.clipboard_icon;
             this.clipModeButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.clipModeButton.Location = new System.Drawing.Point(271, 8);
-            this.clipModeButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.clipModeButton.Location = new System.Drawing.Point(146, 4);
             this.clipModeButton.Name = "clipModeButton";
-            this.clipModeButton.Padding = new System.Windows.Forms.Padding(0, 30, 0, 30);
-            this.clipModeButton.Size = new System.Drawing.Size(241, 200);
+            this.clipModeButton.Padding = new System.Windows.Forms.Padding(0, 15, 0, 15);
+            this.clipModeButton.Size = new System.Drawing.Size(130, 100);
             this.clipModeButton.TabIndex = 2;
             this.clipModeButton.Text = "클립보드 모드";
             this.clipModeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.clipModeButton.UseVisualStyleBackColor = false;
+            this.clipModeButton.Click += new System.EventHandler(this.clipModeButton_Click);
             // 
             // gameModeButton
             // 
@@ -145,11 +142,10 @@ namespace AnemoneTriz.Forms
             this.gameModeButton.HighlightColor = System.Drawing.Color.Tomato;
             this.gameModeButton.Image = global::AnemoneTriz.Properties.Resources.computer_icon;
             this.gameModeButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.gameModeButton.Location = new System.Drawing.Point(7, 8);
-            this.gameModeButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gameModeButton.Location = new System.Drawing.Point(4, 4);
             this.gameModeButton.Name = "gameModeButton";
-            this.gameModeButton.Padding = new System.Windows.Forms.Padding(0, 30, 0, 30);
-            this.gameModeButton.Size = new System.Drawing.Size(240, 200);
+            this.gameModeButton.Padding = new System.Windows.Forms.Padding(0, 15, 0, 15);
+            this.gameModeButton.Size = new System.Drawing.Size(129, 100);
             this.gameModeButton.TabIndex = 1;
             this.gameModeButton.Text = "게임 모드";
             this.gameModeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -286,15 +282,14 @@ namespace AnemoneTriz.Forms
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1270, 602);
+            this.ClientSize = new System.Drawing.Size(684, 301);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Menu = this.mainMenu1;
-            this.MinimumSize = new System.Drawing.Size(1274, 597);
+            this.MinimumSize = new System.Drawing.Size(693, 318);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "아네모네 트리즈";

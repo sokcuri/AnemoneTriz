@@ -5,6 +5,7 @@ using SkiaSharp;
 using System.Diagnostics;
 using System.Drawing;
 using AnemoneTriz.Controls;
+using AnemoneTriz.Frames;
 using static AnemoneTriz.Interop.NativeMethods;
 
 namespace AnemoneTriz.Forms
@@ -99,6 +100,12 @@ namespace AnemoneTriz.Forms
         
         private void gameModeButton_Click(object sender, EventArgs e)
         {
+        }
+
+        private void clipModeButton_Click(object sender, EventArgs e)
+        {
+            AnemoneFrame AF = new AnemoneFrame();
+            AF.Show();
         }
     }
 }
