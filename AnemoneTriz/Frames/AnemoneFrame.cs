@@ -1,14 +1,15 @@
-﻿using AnemoneTriz.Components;
-using AnemoneTriz.Forms;
-using AnemoneTriz.Interop;
-using SkiaSharp;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
+using SkiaSharp;
+using AnemoneTriz.Components;
+using AnemoneTriz.Forms;
+using AnemoneTriz.Interop;
+using WK.Libraries.SharpClipboardNS;
 using static AnemoneTriz.Interop.NativeMethods;
 
 namespace AnemoneTriz.Frames
@@ -18,11 +19,28 @@ namespace AnemoneTriz.Frames
         private SkiaHelper SKHelper { get; set; }
         private ToolBox AFToolBox { get; set; }
 
+        private List<String> TextItems = new List<string>();
+        private int CurrentItem = 0;
+
+        private SharpClipboard Clipboard { get; set; }
+
         public AnemoneFrame()
         {
             InitializeComponent();
             this.MinimumSize = new Size(150, 150);
             this.DoubleBuffered = true;
+
+            Clipboard = new SharpClipboard();
+            Clipboard.ObservableFormats.Texts = true;
+            Clipboard.ClipboardChanged += ClipboardChanged;
+        }
+
+        private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        {
+            if (e != null && e.Content.ToString() != "")
+            {
+                InputText(e.SourceApplication.Title + ": " + e.Content.ToString());
+            }
         }
 
         public void ShowToolBox()
@@ -33,11 +51,37 @@ namespace AnemoneTriz.Frames
             AFToolBox.Show();
         }
 
-        public void InputText(string InputString)
+        public void PrevText()
+        {
+            if (CurrentItem > 0)
+            {
+                CurrentItem--;
+                InputText(TextItems[CurrentItem], false);
+            }
+        }
+
+        public void NextText()
+        {
+            if (CurrentItem + 1 < TextItems.Count)
+            {
+                CurrentItem++;
+                InputText(TextItems[CurrentItem], false);
+            }
+        }
+
+        public void InputText(string InputString, bool PushList = true)
         {
             // InputString = "지난해 일본에서 러브라이브 유저가 300만엔 이상을 과금한 이후 개인파산 신청을 했다는 소식이 있었습니다. 일본에는 이런일이 많은 듯 합니다. 이에 일본 법원의 대응이 게임결제는 면책불가입니다....";
+
+            if (PushList)
+            {
+                TextItems.Add(InputString);
+                CurrentItem = TextItems.Count - 1;
+            }
             
+            AFToolBox.pageLabel.Text = $"{CurrentItem + 1}/{TextItems.Count}";
             SKHelper.ContentText = InputString;
+            SKHelper.Refresh();
             SKHelper.SwapChain();
             SelectBitmap(SKHelper.CSharp_Bitmap);
         }
@@ -251,8 +295,6 @@ namespace AnemoneTriz.Frames
 
                         int BorderWidth = 30;
 
-                        Console.WriteLine($"Point.X: {Point.X}, Point.Y: {Point.Y}, Rect.Left: {Rect.Left}, Rect.Right: {Rect.Right}, Rect.Top: {Rect.Top}, Rect.Bottom: {Rect.Bottom}");
-
                         if (Point.Y < BorderWidth)
                         {
                             if (Point.X < BorderWidth)
@@ -355,8 +397,6 @@ namespace AnemoneTriz.Frames
                 // device context.
                 hBitmap = bitmap.GetHbitmap(Color.FromArgb(0));
                 hOldBitmap = SelectObject(memDc, hBitmap);
-
-                Console.WriteLine($"bitmap.Width: {bitmap.Width}, bitmap.Height: {bitmap.Height}");
 
                 // Set parameters for layered window update.
                 RawSize newSize = new RawSize(bitmap.Width, bitmap.Height);

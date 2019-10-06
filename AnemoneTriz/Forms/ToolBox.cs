@@ -15,10 +15,10 @@ namespace AnemoneTriz.Forms
 {
     public partial class ToolBox : Form
     {
-        AnemoneFrame anemoneFrame { get; set; }
+        AnemoneFrame AneFrame { get; set; }
         public ToolBox(AnemoneFrame AF)
         {
-            anemoneFrame = AF;
+            AneFrame = AF;
             InitializeComponent();
         }
 
@@ -31,6 +31,16 @@ namespace AnemoneTriz.Forms
             }
 
             base.WndProc(ref message);
+        }
+
+        private void prevTextButton_Click(object sender, EventArgs e)
+        {
+            AneFrame.PrevText();
+        }
+
+        private void nextTextButton_Click(object sender, EventArgs e)
+        {
+            AneFrame.NextText();
         }
     }
 }

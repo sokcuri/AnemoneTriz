@@ -104,7 +104,6 @@ namespace AnemoneTriz.Components
 
             Skia_Bitmap = new SKBitmap();
             CreateNativeContext();
-            Console.WriteLine($"NativeContext 생성. Size.Width: {Size.Width}, Size.Height: {Size.Height}");
 
             var result = this.Skia_Bitmap.InstallPixels(
                 info, scan0,
@@ -156,7 +155,6 @@ namespace AnemoneTriz.Components
         {
             if (Initialized == false)
             {
-                Console.WriteLine("not initialized");
                 return false;
 
             }
@@ -168,7 +166,6 @@ namespace AnemoneTriz.Components
                 Refresh();
                 return true;
             }
-            Console.WriteLine("달라진게 없음");
             return false;
         }
 
