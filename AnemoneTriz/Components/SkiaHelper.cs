@@ -77,6 +77,8 @@ namespace AnemoneTriz.Components
         internal IntPtr oldBitmap;
         internal IntPtr scan0;
 
+        public String ContentText { get; set; }
+
 
         public void SwapChain()
         {
@@ -102,6 +104,7 @@ namespace AnemoneTriz.Components
 
             Skia_Bitmap = new SKBitmap();
             CreateNativeContext();
+            Console.WriteLine($"NativeContext 생성. Size.Width: {Size.Width}, Size.Height: {Size.Height}");
 
             var result = this.Skia_Bitmap.InstallPixels(
                 info, scan0,
@@ -149,17 +152,24 @@ namespace AnemoneTriz.Components
             }
         }
 
-        public void SizeCheckAndRefresh(RawSize CurrentSize)
+        public bool SizeCheckAndRefresh(RawSize CurrentSize)
         {
             if (Initialized == false)
-                return;
+            {
+                Console.WriteLine("not initialized");
+                return false;
+
+            }
 
             if (CurrentSize.Width != BitmapSize.Width ||
                 CurrentSize.Height != BitmapSize.Height)
             {
                 Size = CurrentSize;
                 Refresh();
+                return true;
             }
+            Console.WriteLine("달라진게 없음");
+            return false;
         }
 
         public void CopyToGraphics(Graphics graphics)

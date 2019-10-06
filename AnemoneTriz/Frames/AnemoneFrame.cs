@@ -1,4 +1,5 @@
 ﻿using AnemoneTriz.Components;
+using AnemoneTriz.Interop;
 using SkiaSharp;
 using System;
 using System.Drawing;
@@ -7,22 +8,34 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
+using static AnemoneTriz.Extensions.WordEx;
+using static AnemoneTriz.Interop.NativeMethods;
+
 namespace AnemoneTriz.Frames
 {
     public partial class AnemoneFrame : Form
     {
-        private String InputString { get; set; }
         private SkiaHelper SKHelper { get; set; }
 
         public AnemoneFrame()
         {
-
+            InitializeComponent();
+            this.MinimumSize = new Size(150, 150);
+            this.DoubleBuffered = true;
         }
 
         public void InputText(string InputString)
         {
             // InputString = "지난해 일본에서 러브라이브 유저가 300만엔 이상을 과금한 이후 개인파산 신청을 했다는 소식이 있었습니다. 일본에는 이런일이 많은 듯 합니다. 이에 일본 법원의 대응이 게임결제는 면책불가입니다....";
-            SKHelper = new SkiaHelper()
+            
+            SKHelper.ContentText = InputString;
+            SKHelper.SwapChain();
+            SelectBitmap(SKHelper.CSharp_Bitmap);
+        }
+
+        private SkiaHelper CreateSkiaHelper()
+        {
+            return new SkiaHelper()
             {
                 Size = new RawSize
                 {
@@ -31,6 +44,18 @@ namespace AnemoneTriz.Frames
                 },
                 PostChain = new SkiaHelper.CanvasDelegate((SKCanvas canvas) =>
                 {
+                    using (var rectPaint = new SKPaint
+                    {
+                        StrokeWidth = 0,
+                        StrokeMiter = 0,
+                        StrokeJoin = SKStrokeJoin.Round,
+                        StrokeCap = SKStrokeCap.Round,
+                        Style = SKPaintStyle.Stroke,
+                        Color = SKColor.Parse("666"),
+                        TextSize = 32,
+                        IsAntialias = true
+
+                    })
                     using (var textPaint = new SKPaint
                     {
                         Typeface = SKFontManager.Default.MatchCharacter('가'),
@@ -85,8 +110,8 @@ namespace AnemoneTriz.Frames
                         float y = 5.0f;
                         float measuredWidth = 0;
 
-                        string str = InputString;
-                        while (str.Length != 0)
+                        string str = SKHelper.ContentText;
+                        while (str != null && str.Length != 0)
                         {
                             SKRect bounds = new SKRect();
 
@@ -123,24 +148,23 @@ namespace AnemoneTriz.Frames
                             str = Encoding.UTF8.GetString(b, (int)textLength, b.Length - (int)textLength);
                         }
 
+                        SKHelper.Skia_Canvas.DrawRect(new SKRect(0, 0, Size.Width, Size.Height), rectPaint);
+
                         SKHelper.Skia_Canvas.DrawPath(frameTextPath, outline2Paint);
                         SKHelper.Skia_Canvas.DrawPath(frameTextPath, outlinePaint);
                         SKHelper.Skia_Canvas.DrawPath(frameTextPath, textPaint);
+
                     }
                 })
-
             };
-            InitializeComponent();
-            this.DoubleBuffered = true;
-            SKHelper.SwapChain();
-
-            SelectBitmap(SKHelper.CSharp_Bitmap);
         }
 
         protected override CreateParams CreateParams
         {
             get
             {
+                SKHelper = CreateSkiaHelper();
+
                 // Add the layered extended style (WS_EX_LAYERED) to this window.
                 CreateParams createParams = base.CreateParams;
                 createParams.ExStyle |= WS_EX_LAYERED;
@@ -151,7 +175,7 @@ namespace AnemoneTriz.Frames
         protected override void OnSizeChanged(EventArgs e)
         {
             SKHelper.SizeCheckAndRefresh(new RawSize(this.Width, this.Height));
-            Invalidate();
+            SelectBitmap(SKHelper.CSharp_Bitmap);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -171,14 +195,83 @@ namespace AnemoneTriz.Frames
         /// <param name="message"></param>
         protected override void WndProc(ref Message message)
         {
-            if (message.Msg == WM_NCHITTEST)
+            switch((AnemoneTriz.Interop.WM)message.Msg)
             {
-                // Tell Windows that the user is on the title bar (caption)
-                message.Result = (IntPtr)HTCAPTION;
-            }
-            else
-            {
-                base.WndProc(ref message);
+                //case WM.SIZE:
+                //    if (SKHelper.SizeCheckAndRefresh(new RawSize(this.Width, this.Height)))
+                //    {
+                //        Console.WriteLine($"Width: {this.Width}, Height: {this.Height}");
+                //        SelectBitmap(SKHelper.CSharp_Bitmap);
+                //    }
+
+                //    if (SKHelper.CSharp_Bitmap != null)
+                //        SelectBitmap(SKHelper.CSharp_Bitmap);
+                //    break;
+
+                case WM.NCHITTEST:
+                    {
+                        GetClientRect(this.Handle, out var Rect);
+
+                        POINT Point;
+                        Point.X = ((int)message.LParam).LowWord();
+                        Point.Y = ((int)message.LParam).HighWord();
+                        ScreenToClient(this.Handle, ref Point);
+
+                        // Tell Windows that the user is on the title bar (caption)
+
+                        int BorderWidth = 30;
+
+                        Console.WriteLine($"Point.X: {Point.X}, Point.Y: {Point.Y}, Rect.Left: {Rect.Left}, Rect.Right: {Rect.Right}, Rect.Top: {Rect.Top}, Rect.Bottom: {Rect.Bottom}");
+
+                        if (Point.Y < BorderWidth)
+                        {
+                            if (Point.X < BorderWidth)
+                            {
+                                message.Result = (IntPtr)HitTestValues.HTTOPLEFT;
+                                return;
+                            }
+                            else if (Point.X > (Rect.Right - BorderWidth))
+                            {
+                                message.Result = (IntPtr)HitTestValues.HTTOPRIGHT;
+                                return;
+                            }
+                            message.Result = (IntPtr)HitTestValues.HTTOP;
+                            return;
+                        }
+                        /*bottom-left, bottom and bottom-right */
+                        if (Point.Y > (Rect.Bottom - BorderWidth))
+                        {
+                            if (Point.X < BorderWidth)
+                            {
+                                message.Result = (IntPtr)HitTestValues.HTBOTTOMLEFT;
+                                return;
+                            }
+                            else if (Point.X > (Rect.Right - BorderWidth))
+                            {
+                                message.Result = (IntPtr)HitTestValues.HTBOTTOMRIGHT;
+                                return;
+                            }
+                            message.Result = (IntPtr)HitTestValues.HTBOTTOM;
+                            return;
+                        }
+                        if (Point.X < BorderWidth)
+                        {
+                            message.Result = (IntPtr)HitTestValues.HTLEFT;
+                            return;
+                        }
+                        if (Point.X > (Rect.Right - BorderWidth))
+                        {
+                            message.Result = (IntPtr)HitTestValues.HTRIGHT;
+                            return;
+                        }
+                    }
+
+                    message.Result = (IntPtr)HitTestValues.HTCAPTION;
+                    break;
+
+                default:
+                    base.WndProc(ref message);
+                    break;
             }
         }
 
@@ -209,6 +302,11 @@ namespace AnemoneTriz.Frames
         /// </param>
         public void SelectBitmap(Bitmap bitmap, int opacity)
         {
+            if (bitmap == null)
+            {
+                return;
+            }
+
             // Does this bitmap contain an alpha channel?
             if (bitmap.PixelFormat != PixelFormat.Format32bppArgb && bitmap.PixelFormat != PixelFormat.Format32bppPArgb)
             {
@@ -227,6 +325,8 @@ namespace AnemoneTriz.Frames
                 // device context.
                 hBitmap = bitmap.GetHbitmap(Color.FromArgb(0));
                 hOldBitmap = SelectObject(memDc, hBitmap);
+
+                Console.WriteLine($"bitmap.Width: {bitmap.Width}, bitmap.Height: {bitmap.Height}");
 
                 // Set parameters for layered window update.
                 NTSize newSize = new NTSize(bitmap.Width, bitmap.Height);
@@ -268,8 +368,6 @@ namespace AnemoneTriz.Frames
         #region Native Methods and Structures
 
         const Int32 WS_EX_LAYERED = 0x80000;
-        const Int32 HTCAPTION = 0x02;
-        const Int32 WM_NCHITTEST = 0x84;
         const Int32 ULW_ALPHA = 0x02;
         const byte AC_SRC_OVER = 0x00;
         const byte AC_SRC_ALPHA = 0x01;

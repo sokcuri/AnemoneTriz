@@ -49,6 +49,12 @@ namespace AnemoneTriz.Interop
         [DllImport("user32.dll")]
         public static extern bool ShowCaret(IntPtr hWnd);
 
+        [DllImport("user32.dll")]
+        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+
+        [DllImport("user32.dll")]
+        public static extern bool ScreenToClient(IntPtr hWnd, ref POINT lpPoint);
+
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
@@ -68,6 +74,57 @@ namespace AnemoneTriz.Interop
             public RECT(System.Drawing.Rectangle r) : this(r.Left, r.Top, r.Right, r.Bottom)
             {
             }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int X;
+            public int Y;
+
+            public POINT(int x, int y)
+            {
+                this.X = x;
+                this.Y = y;
+            }
+
+            public static implicit operator System.Drawing.Point(POINT p)
+            {
+                return new System.Drawing.Point(p.X, p.Y);
+            }
+
+            public static implicit operator POINT(System.Drawing.Point p)
+            {
+                return new POINT(p.X, p.Y);
+            }
+        }
+
+        public enum HitTestValues
+        {
+            HTERROR = -2,
+            HTTRANSPARENT = -1,
+            HTNOWHERE = 0,
+            HTCLIENT = 1,
+            HTCAPTION = 2,
+            HTSYSMENU = 3,
+            HTGROWBOX = 4,
+            HTMENU = 5,
+            HTHSCROLL = 6,
+            HTVSCROLL = 7,
+            HTMINBUTTON = 8,
+            HTMAXBUTTON = 9,
+            HTLEFT = 10,
+            HTRIGHT = 11,
+            HTTOP = 12,
+            HTTOPLEFT = 13,
+            HTTOPRIGHT = 14,
+            HTBOTTOM = 15,
+            HTBOTTOMLEFT = 16,
+            HTBOTTOMRIGHT = 17,
+            HTBORDER = 18,
+            HTOBJECT = 19,
+            HTCLOSE = 20,
+            HTHELP = 21
         }
 
         [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
