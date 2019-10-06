@@ -35,6 +35,29 @@ namespace AnemoneTriz.Components
         }
     }
 
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RawPoint
+    {
+        public int X;
+        public int Y;
+
+        public RawPoint(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public Point ToDrawingPoint()
+        {
+            return new Point(X, Y);
+        }
+
+        public SKPoint ToSKPoint()
+        {
+            return new SKPoint(X, Y);
+        }
+    }
+
     class SkiaHelper
     {
         public RawSize Size { get; set; }

@@ -7,6 +7,7 @@ using System.Drawing;
 using AnemoneTriz.Controls;
 using AnemoneTriz.Frames;
 using static AnemoneTriz.Interop.NativeMethods;
+using AnemoneTriz.Properties;
 
 namespace AnemoneTriz.Forms
 {
@@ -106,6 +107,8 @@ namespace AnemoneTriz.Forms
         {
             AnemoneFrame AF = new AnemoneFrame();
             AF.Show();
+            // AF.SelectBitmap(Resources.ring, 255);
+            AF.InputText("지난해 일본에서 러브라이브 유저가 300만엔 이상을 과금한 이후 개인파산 신청을 했다는 소식이 있었습니다. 일본에는 이런일이 많은 듯 합니다. 이에 일본 법원의 대응이 게임결제는 면책불가입니다....");
         }
     }
 }

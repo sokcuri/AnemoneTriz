@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AnemoneTriz.Components;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,6 +12,10 @@ namespace AnemoneTriz.Interop
     [DesignerCategory("Code")]
     internal static class NativeMethods
     {
+        public const byte AC_SRC_OVER = 0x00;
+        public const byte AC_SRC_ALPHA = 0x01;
+        public const int ULW_ALPHA = 0x00000002;
+
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr GetWindowDC(IntPtr hWnd);
 
@@ -241,7 +246,10 @@ namespace AnemoneTriz.Interop
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern uint GetDpiForWindow(IntPtr hWnd);
 
-        private static uint prevDpi = 96;
+        // private static uint prevDpi = 96;
+
+        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+        public static extern bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref RawPoint pptDst, ref RawSize psize, IntPtr hdcSrc, ref RawPoint pprSrc, int crKey, ref BLENDFUNCTION pblend, int dwFlags);
 
         internal enum DPI_AWARENESS : int
         {

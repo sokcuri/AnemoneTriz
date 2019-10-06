@@ -103,7 +103,7 @@ namespace AnemoneTriz
             {
                 File.Delete(dic["ExePath"] + ".old");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // 파일 삭제 실패. 하지만 그대로 진행 가능
             }
