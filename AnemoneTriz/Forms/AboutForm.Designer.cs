@@ -127,8 +127,8 @@ namespace AnemoneTriz.Forms
             // AboutForm
             // 
             this.AcceptButton = this.closeButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackgroundImage = global::AnemoneTriz.Properties.Resources.kawaii_mashiro;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(684, 411);

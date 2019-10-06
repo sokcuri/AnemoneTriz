@@ -92,8 +92,6 @@
     <Compile Include="Controls\AMForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Extensions\RawEx.cs" />
-    <Compile Include="Extensions\WordEx.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,9 +104,13 @@
     <Compile Include="Forms\TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ToolBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ToolBox.Designer.cs">
+      <DependentUpon>ToolBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interop\WindowsMessages.cs" />
-    <Compile Include="Layered\LayeredBuffer.cs" />
-    <Compile Include="Layered\LayeredContext.cs" />
     <Compile Include="Translator\ezTransXP.cs" />
     <Compile Include="Update\UpdateCheck.cs" />
     <Compile Include="Frames\AnemoneFrame.cs">
@@ -145,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ToolBox.resx">
+      <DependentUpon>ToolBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frames\AnemoneFrame.resx">
       <DependentUpon>AnemoneFrame.cs</DependentUpon>

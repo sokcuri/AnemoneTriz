@@ -32,14 +32,12 @@
             // 
             // AnemoneFrame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 255);
+            this.ClientSize = new System.Drawing.Size(643, 280);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MinimumSize = new System.Drawing.Size(150, 150);
             this.Name = "AnemoneFrame";
-            this.Text = "AnemoneFrame";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.AnemoneFrame_Load);
             this.ResumeLayout(false);
 
         }

@@ -1,4 +1,5 @@
 ﻿using AnemoneTriz.Components;
+using AnemoneTriz.Forms;
 using AnemoneTriz.Interop;
 using SkiaSharp;
 using System;
@@ -8,7 +9,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-using static AnemoneTriz.Extensions.WordEx;
 using static AnemoneTriz.Interop.NativeMethods;
 
 namespace AnemoneTriz.Frames
@@ -16,12 +16,21 @@ namespace AnemoneTriz.Frames
     public partial class AnemoneFrame : Form
     {
         private SkiaHelper SKHelper { get; set; }
+        private ToolBox AFToolBox { get; set; }
 
         public AnemoneFrame()
         {
             InitializeComponent();
             this.MinimumSize = new Size(150, 150);
             this.DoubleBuffered = true;
+        }
+
+        public void ShowToolBox()
+        {
+            AFToolBox = new ToolBox(this);
+            AFToolBox.Location = new Point(this.Location.X, this.Location.Y + this.Size.Height);
+            AFToolBox.Size = new Size(this.Size.Width, AFToolBox.Size.Height);
+            AFToolBox.Show();
         }
 
         public void InputText(string InputString)
@@ -37,7 +46,7 @@ namespace AnemoneTriz.Frames
         {
             return new SkiaHelper()
             {
-                Size = new RawSize
+                Size = new Components.RawSize
                 {
                     Width = this.Width,
                     Height = this.Height
@@ -56,6 +65,20 @@ namespace AnemoneTriz.Frames
                         IsAntialias = true
 
                     })
+
+                    using (var bgPaint = new SKPaint
+                    {
+                        StrokeWidth = 0,
+                        StrokeMiter = 0,
+                        StrokeJoin = SKStrokeJoin.Round,
+                        StrokeCap = SKStrokeCap.Round,
+                        Style = SKPaintStyle.Fill,
+                        Color = SKColor.Parse("33fff9a3"),
+                        TextSize = 32,
+                        IsAntialias = true
+
+                    })
+
                     using (var textPaint = new SKPaint
                     {
                         Typeface = SKFontManager.Default.MatchCharacter('가'),
@@ -148,6 +171,7 @@ namespace AnemoneTriz.Frames
                             str = Encoding.UTF8.GetString(b, (int)textLength, b.Length - (int)textLength);
                         }
 
+                        SKHelper.Skia_Canvas.DrawRect(new SKRect(0, 0, Size.Width, Size.Height), bgPaint);
                         SKHelper.Skia_Canvas.DrawRect(new SKRect(0, 0, Size.Width, Size.Height), rectPaint);
 
                         SKHelper.Skia_Canvas.DrawPath(frameTextPath, outline2Paint);
@@ -172,20 +196,36 @@ namespace AnemoneTriz.Frames
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            ShowToolBox();
+            base.OnLoad(e);
+        }
+
         protected override void OnSizeChanged(EventArgs e)
         {
-            SKHelper.SizeCheckAndRefresh(new RawSize(this.Width, this.Height));
+            if (AFToolBox != null)
+            {
+                AFToolBox.Location = new Point(this.Location.X, this.Location.Y + this.Size.Height);
+                AFToolBox.Size = new Size(this.Size.Width, AFToolBox.Size.Height);
+            }
+            SKHelper.SizeCheckAndRefresh(new Components.RawSize(this.Width, this.Height));
             SelectBitmap(SKHelper.CSharp_Bitmap);
+        }
+        
+        protected override void OnMove(EventArgs e)
+        {
+            if (AFToolBox != null)
+            {
+                AFToolBox.Location = new Point(this.Location.X, this.Location.Y + this.Size.Height);
+                AFToolBox.Size = new Size(this.Size.Width, AFToolBox.Size.Height);
+            }
+            base.OnMove(e);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             SKHelper.CopyToGraphics(e.Graphics);
-        }
-
-        private void AnemoneFrame_Load(object sender, EventArgs e)
-        {
-            SKHelper.SizeCheckAndRefresh(new RawSize(this.Width, this.Height));
         }
 
         /// <summary>
@@ -197,24 +237,14 @@ namespace AnemoneTriz.Frames
         {
             switch((AnemoneTriz.Interop.WM)message.Msg)
             {
-                //case WM.SIZE:
-                //    if (SKHelper.SizeCheckAndRefresh(new RawSize(this.Width, this.Height)))
-                //    {
-                //        Console.WriteLine($"Width: {this.Width}, Height: {this.Height}");
-                //        SelectBitmap(SKHelper.CSharp_Bitmap);
-                //    }
-
-                //    if (SKHelper.CSharp_Bitmap != null)
-                //        SelectBitmap(SKHelper.CSharp_Bitmap);
-                //    break;
-
                 case WM.NCHITTEST:
                     {
                         GetClientRect(this.Handle, out var Rect);
 
                         POINT Point;
-                        Point.X = ((int)message.LParam).LowWord();
-                        Point.Y = ((int)message.LParam).HighWord();
+
+                        Point.X = unchecked((short)(long)message.LParam);
+                        Point.Y = unchecked((short)((long)message.LParam >> 16));
                         ScreenToClient(this.Handle, ref Point);
 
                         // Tell Windows that the user is on the title bar (caption)
@@ -329,9 +359,9 @@ namespace AnemoneTriz.Frames
                 Console.WriteLine($"bitmap.Width: {bitmap.Width}, bitmap.Height: {bitmap.Height}");
 
                 // Set parameters for layered window update.
-                NTSize newSize = new NTSize(bitmap.Width, bitmap.Height);
-                NTPoint sourceLocation = new NTPoint(0, 0);
-                NTPoint newLocation = new NTPoint(this.Left, this.Top);
+                RawSize newSize = new RawSize(bitmap.Width, bitmap.Height);
+                RawPoint sourceLocation = new RawPoint(0, 0);
+                RawPoint newLocation = new RawPoint(this.Left, this.Top);
                 BLENDFUNCTION blend = new BLENDFUNCTION();
                 blend.BlendOp = AC_SRC_OVER;
                 blend.BlendFlags = 0;
@@ -363,79 +393,5 @@ namespace AnemoneTriz.Frames
                 DeleteDC(memDc);
             }
         }
-
-
-        #region Native Methods and Structures
-
-        const Int32 WS_EX_LAYERED = 0x80000;
-        const Int32 ULW_ALPHA = 0x02;
-        const byte AC_SRC_OVER = 0x00;
-        const byte AC_SRC_ALPHA = 0x01;
-
-        [StructLayout(LayoutKind.Sequential)]
-        struct NTPoint
-        {
-            public Int32 x;
-            public Int32 y;
-
-            public NTPoint(Int32 x, Int32 y)
-            { this.x = x; this.y = y; }
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        struct NTSize
-        {
-            public Int32 cx;
-            public Int32 cy;
-
-            public NTSize(Int32 cx, Int32 cy)
-            { this.cx = cx; this.cy = cy; }
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        struct ARGB
-        {
-            public byte Blue;
-            public byte Green;
-            public byte Red;
-            public byte Alpha;
-        }
-
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        struct BLENDFUNCTION
-        {
-            public byte BlendOp;
-            public byte BlendFlags;
-            public byte SourceConstantAlpha;
-            public byte AlphaFormat;
-        }
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst,
-            ref NTPoint pptDst, ref NTSize psize, IntPtr hdcSrc, ref NTPoint pprSrc,
-            Int32 crKey, ref BLENDFUNCTION pblend, Int32 dwFlags);
-
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern IntPtr CreateCompatibleDC(IntPtr hDC);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern IntPtr GetDC(IntPtr hWnd);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
-
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool DeleteDC(IntPtr hdc);
-
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
-
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool DeleteObject(IntPtr hObject);
-
-        #endregion
     }
 }

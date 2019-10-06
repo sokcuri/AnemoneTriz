@@ -55,6 +55,9 @@ namespace AnemoneTriz.Interop
         [DllImport("user32.dll")]
         public static extern bool ScreenToClient(IntPtr hWnd, ref POINT lpPoint);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
@@ -98,6 +101,8 @@ namespace AnemoneTriz.Interop
                 return new POINT(p.X, p.Y);
             }
         }
+
+        public const int WS_EX_LAYERED = 0x80000;
 
         public enum HitTestValues
         {
